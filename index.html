@@ -1,0 +1,2742 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neo Saxena | Interactive Resume</title>
+<style>
+/* ===== CSS CUSTOM PROPERTIES / THEMES ===== */
+:root {
+  --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+  --nav-height: 60px;
+  --transition: 0.3s ease;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+[data-theme="dark"] {
+  --bg: #0a0a1a;
+  --bg-alt: #111127;
+  --surface: #1a1a2e;
+  --card: #16213e;
+  --card-hover: #1c2a4a;
+  --border: rgba(255,255,255,0.08);
+  --primary: #00d4ff;
+  --secondary: #ff006e;
+  --accent: #ffa500;
+  --accent2: #a855f7;
+  --text: #e8e8f0;
+  --text-secondary: #9a9ab0;
+  --text-muted: #6a6a80;
+  --nav-bg: rgba(10,10,26,0.85);
+  --gradient: linear-gradient(135deg, #00d4ff, #a855f7, #ff006e);
+  --gradient2: linear-gradient(135deg, #ff006e, #ffa500);
+  --shadow: 0 8px 32px rgba(0,0,0,0.4);
+  --shadow-hover: 0 12px 48px rgba(0,212,255,0.15);
+  --glow: 0 0 20px rgba(0,212,255,0.3);
+  --particle-color: rgba(0,212,255,0.6);
+  --particle-line: rgba(0,212,255,0.15);
+  --timeline-line: #2a2a4e;
+  --scrollbar-track: #1a1a2e;
+  --scrollbar-thumb: #3a3a5e;
+}
+
+[data-theme="light"] {
+  --bg: #f5f7fa;
+  --bg-alt: #edf0f5;
+  --surface: #ffffff;
+  --card: #ffffff;
+  --card-hover: #f0f8ff;
+  --border: rgba(0,0,0,0.08);
+  --primary: #0066ff;
+  --secondary: #00c853;
+  --accent: #ff6d00;
+  --accent2: #00bcd4;
+  --text: #1a1a2e;
+  --text-secondary: #555570;
+  --text-muted: #888;
+  --nav-bg: rgba(245,247,250,0.9);
+  --gradient: linear-gradient(135deg, #0066ff, #00c853, #00bcd4);
+  --gradient2: linear-gradient(135deg, #00c853, #ff6d00);
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  --shadow-hover: 0 8px 40px rgba(0,102,255,0.12);
+  --glow: 0 0 20px rgba(0,102,255,0.15);
+  --particle-color: rgba(0,102,255,0.5);
+  --particle-line: rgba(0,102,255,0.1);
+  --timeline-line: #d0d5dd;
+  --scrollbar-track: #edf0f5;
+  --scrollbar-thumb: #c0c4cc;
+}
+
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-height);
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  transition: background var(--transition), color var(--transition);
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 4px; }
+
+a { color: var(--primary); text-decoration: none; transition: color var(--transition); }
+a:hover { color: var(--secondary); }
+
+section {
+  padding: 100px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-bottom: 48px;
+}
+
+/* ===== SCROLL PROGRESS BAR ===== */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--gradient);
+  z-index: 1001;
+  width: 0%;
+  transition: none;
+}
+
+/* ===== NAVIGATION ===== */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 1000;
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.nav-logo {
+  font-weight: 800;
+  font-size: 1.3rem;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: all var(--transition);
+  position: relative;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--primary);
+  background: rgba(0,212,255,0.08);
+}
+
+[data-theme="light"] .nav-links a:hover,
+[data-theme="light"] .nav-links a.active {
+  background: rgba(0,102,255,0.08);
+}
+
+.nav-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+}
+
+.btn-icon:hover {
+  border-color: var(--primary);
+  box-shadow: var(--glow);
+  transform: scale(1.05);
+}
+
+.btn-icon svg { width: 18px; height: 18px; }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  background: none;
+  border: none;
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: all var(--transition);
+}
+
+/* ===== HERO ===== */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  padding-top: var(--nav-height);
+  max-width: 100%;
+}
+
+#particles-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 6px 18px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: rgba(255,165,0,0.15);
+  color: var(--accent);
+  border: 1px solid rgba(255,165,0,0.3);
+  margin-bottom: 20px;
+  animation: fadeInDown 0.8s ease forwards;
+}
+
+.hero-name {
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 8px;
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+.hero-name .gradient-text {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-typing-wrapper {
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  color: var(--text-secondary);
+  min-height: 2.4em;
+  margin-bottom: 24px;
+  animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+.hero-typing-wrapper .cursor-blink {
+  display: inline-block;
+  width: 3px;
+  height: 1.2em;
+  background: var(--primary);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+
+.hero-location {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 32px;
+  animation: fadeInUp 0.8s ease 0.6s both;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease 0.8s both;
+}
+
+.btn {
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.btn svg { width: 16px; height: 16px; }
+
+.btn-primary {
+  background: var(--gradient);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--glow);
+  color: #fff;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--border);
+  color: var(--text);
+}
+
+.btn-outline:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s infinite;
+  color: var(--text-muted);
+  z-index: 1;
+}
+
+.scroll-indicator svg { width: 28px; height: 28px; }
+
+/* ===== REVEAL ANIMATION ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ===== ABOUT ===== */
+#about { text-align: center; }
+
+.about-photo-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.about-photo {
+  width: 168px;
+  height: 168px;
+  border-radius: 50%;
+  padding: 4px;
+  background: var(--gradient);
+  box-shadow: var(--glow);
+}
+
+.about-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.about-photo-initials {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  font-weight: 800;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.about-content {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.about-text {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+
+.about-ketsui {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--accent);
+  padding: 16px 24px;
+  border-left: 3px solid var(--accent);
+  background: rgba(255,165,0,0.05);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin-bottom: 32px;
+  text-align: left;
+}
+
+.about-stats {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ===== TIMELINE (Experience & Education) ===== */
+.timeline {
+  position: relative;
+  padding: 20px 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--timeline-line);
+  transform: translateX(-50%);
+}
+
+.timeline-item {
+  position: relative;
+  width: 50%;
+  padding: 0 40px 60px;
+}
+
+.timeline-item:nth-child(odd) {
+  left: 0;
+  text-align: right;
+  padding-right: 60px;
+}
+
+.timeline-item:nth-child(even) {
+  left: 50%;
+  text-align: left;
+  padding-left: 60px;
+}
+
+.timeline-dot {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--gradient);
+  top: 8px;
+  z-index: 2;
+  box-shadow: var(--glow);
+}
+
+.timeline-item:nth-child(odd) .timeline-dot {
+  right: -8px;
+}
+
+.timeline-item:nth-child(even) .timeline-dot {
+  left: -8px;
+}
+
+.timeline-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: all var(--transition);
+  cursor: pointer;
+  text-align: left;
+}
+
+.timeline-card:hover {
+  background: var(--card-hover);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-4px);
+}
+
+.timeline-date {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.timeline-role {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 4px 0;
+  color: var(--text);
+}
+
+.timeline-company {
+  font-size: 0.95rem;
+  color: var(--secondary);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.timeline-location {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.timeline-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.timeline-card.expanded .timeline-details {
+  max-height: 500px;
+}
+
+.timeline-details ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 8px;
+}
+
+.timeline-details li {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  padding: 4px 0;
+  padding-left: 16px;
+  position: relative;
+}
+
+.timeline-details li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+.timeline-expand {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  transition: color var(--transition);
+}
+
+.timeline-card:hover .timeline-expand { color: var(--primary); }
+
+/* ===== SKILLS ===== */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.skill-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  transition: all var(--transition);
+}
+
+.skill-item:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-hover);
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.skill-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.skill-percent {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary);
+  font-family: var(--font-mono);
+}
+
+.skill-bar-bg {
+  height: 8px;
+  background: var(--bg-alt);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 4px;
+  background: var(--gradient);
+  transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.skill-category-title {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  margin-top: 32px;
+  font-weight: 600;
+}
+
+.skill-category-title:first-child { margin-top: 0; }
+
+.skills-other {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.skill-tag {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  transition: all var(--transition);
+}
+
+.skill-tag:hover {
+  border-color: var(--secondary);
+  color: var(--secondary);
+  transform: translateY(-2px);
+}
+
+/* ===== CERTIFICATIONS ===== */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.cert-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.cert-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.cert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.cert-card:hover::before { opacity: 1; }
+
+.cert-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  font-size: 1.3rem;
+}
+
+.cert-icon.comptia { background: rgba(255,0,110,0.1); color: var(--secondary); }
+.cert-icon.google { background: rgba(0,212,255,0.1); color: var(--primary); }
+.cert-icon.eccouncil { background: rgba(168,85,247,0.1); color: var(--accent2); }
+
+.cert-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.cert-issuer {
+  font-size: 0.85rem;
+  color: var(--secondary);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.cert-date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.cert-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.cert-verify {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary);
+  transition: all var(--transition);
+}
+
+.cert-verify:hover {
+  color: var(--secondary);
+  letter-spacing: 0.5px;
+}
+
+.project-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--secondary);
+  text-decoration: none;
+  transition: all var(--transition);
+}
+.project-link:hover {
+  color: var(--primary);
+  letter-spacing: 0.5px;
+}
+
+/* ===== FUN STUFF ===== */
+.fun-tabs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.fun-tab {
+  padding: 10px 24px;
+  border-radius: 25px;
+  border: 2px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-main);
+}
+
+.fun-tab:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.fun-tab.active {
+  background: var(--gradient);
+  border-color: transparent;
+  color: #fff;
+}
+
+.fun-tab svg { width: 16px; height: 16px; }
+
+.fun-panel { display: none; }
+.fun-panel.active { display: block; }
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.book-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.book-card:hover {
+  transform: translateY(-6px) rotate(-1deg);
+  box-shadow: var(--shadow-hover);
+}
+
+.book-spine {
+  width: 60px;
+  height: 80px;
+  border-radius: 4px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+}
+
+.book-card:nth-child(1) .book-spine { background: linear-gradient(135deg, #ff006e22, #ff006e44); }
+.book-card:nth-child(2) .book-spine { background: linear-gradient(135deg, #00d4ff22, #00d4ff44); }
+.book-card:nth-child(3) .book-spine { background: linear-gradient(135deg, #ffa50022, #ffa50044); }
+.book-card:nth-child(4) .book-spine { background: linear-gradient(135deg, #a855f722, #a855f744); }
+.book-card:nth-child(5) .book-spine { background: linear-gradient(135deg, #10b98122, #10b98144); }
+.book-card:nth-child(6) .book-spine { background: linear-gradient(135deg, #f4364c22, #f4364c44); }
+
+.book-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.book-author {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.project-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient2);
+  transform: scaleX(0);
+  transition: transform var(--transition);
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.project-card:hover::after { transform: scaleX(1); }
+
+.project-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.project-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.project-tag {
+  font-size: 0.72rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: rgba(0,212,255,0.1);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.recs-list { display: flex; flex-direction: column; gap: 24px; }
+
+.rec-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  position: relative;
+  transition: all var(--transition);
+}
+
+.rec-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.rec-quote-mark {
+  font-size: 3rem;
+  line-height: 1;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: absolute;
+  top: 16px;
+  left: 24px;
+  opacity: 0.5;
+}
+
+.rec-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 16px;
+  padding-top: 24px;
+  max-height: 120px;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  position: relative;
+}
+
+.rec-text::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(transparent, var(--card));
+  transition: opacity var(--transition);
+}
+
+.rec-card.expanded .rec-text {
+  max-height: 1000px;
+}
+
+.rec-card.expanded .rec-text::after { opacity: 0; }
+
+.rec-toggle {
+  font-size: 0.82rem;
+  color: var(--primary);
+  cursor: pointer;
+  font-weight: 600;
+  border: none;
+  background: none;
+  padding: 4px 0;
+  font-family: var(--font-main);
+  margin-bottom: 12px;
+}
+
+.rec-toggle:hover { text-decoration: underline; }
+
+.rec-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.rec-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.rec-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rec-author-info .rec-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.rec-author-info .rec-title {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ===== CONTACT ===== */
+#contact { text-align: center; }
+
+.contact-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: all var(--transition);
+  text-decoration: none;
+  color: var(--text);
+  min-width: 200px;
+}
+
+.contact-item:hover {
+  border-color: var(--primary);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  color: var(--text);
+}
+
+.contact-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-icon svg { width: 20px; height: 20px; }
+
+.contact-icon.email { background: rgba(0,212,255,0.1); color: var(--primary); }
+.contact-icon.phone { background: rgba(168,85,247,0.1); color: var(--accent2); }
+.contact-icon.linkedin { background: rgba(37,99,235,0.12); color: #0a66c2; }
+.contact-icon.web { background: rgba(255,0,110,0.1); color: var(--secondary); }
+
+.contact-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.contact-value {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 40px 24px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+  40% { transform: translateX(-50%) translateY(-12px); }
+  60% { transform: translateX(-50%) translateY(-6px); }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+
+  .nav-links.mobile-open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+    gap: 4px;
+  }
+
+  section { padding: 60px 16px; }
+
+  .section-title { font-size: 1.8rem; }
+
+  .timeline::before { left: 20px; }
+
+  .timeline-item,
+  .timeline-item:nth-child(odd),
+  .timeline-item:nth-child(even) {
+    width: 100%;
+    left: 0;
+    text-align: left;
+    padding-left: 52px;
+    padding-right: 0;
+  }
+
+  .timeline-item:nth-child(odd) .timeline-dot,
+  .timeline-item:nth-child(even) .timeline-dot {
+    left: 12px;
+    right: auto;
+  }
+
+  .skills-grid { grid-template-columns: 1fr; }
+
+  .cert-grid { grid-template-columns: 1fr; }
+
+  .about-stats { gap: 20px; }
+
+  .contact-grid { flex-direction: column; align-items: center; }
+}
+
+@media (max-width: 480px) {
+  .hero-name { font-size: 2.2rem; }
+  .books-grid { grid-template-columns: 1fr 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+}
+
+.print-contact-row { display: none; }
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  @page {
+    margin: 0.4in 0.5in;
+    size: letter;
+  }
+
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  body {
+    font-size: 8.5pt;
+    line-height: 1.3;
+    background: #fff !important;
+    color: #1a1a2e !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    orphans: 2;
+    widows: 2;
+  }
+
+  .reveal, .reveal-left, .reveal-right {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  nav, #scroll-progress, #particles-canvas, .scroll-indicator,
+  .hero-cta, .nav-actions, .fun-tabs, .btn-icon,
+  .hamburger, footer, .about-photo-wrapper,
+  .hero-badge, #funstuff, #contact,
+  .about-ketsui, .project-link,
+  .section-subtitle { display: none !important; }
+
+  section {
+    padding: 6px 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
+  /* ----- Hero / Header ----- */
+  #hero {
+    min-height: auto !important;
+    padding: 0 0 5px !important;
+    padding-top: 0 !important;
+    display: block !important;
+    border-bottom: 3px solid #0066ff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    position: static !important;
+  }
+
+  .hero-content {
+    text-align: center;
+    position: relative !important;
+    z-index: auto !important;
+  }
+
+  .hero-name {
+    font-size: 22pt !important;
+    margin-bottom: 0 !important;
+    line-height: 1.1 !important;
+    animation: none !important;
+  }
+  .hero-name .gradient-text {
+    background: none !important;
+    -webkit-text-fill-color: #0a0a1a !important;
+    color: #0a0a1a !important;
+  }
+
+  .hero-typing-wrapper {
+    font-size: 10pt !important;
+    color: #0066ff !important;
+    -webkit-text-fill-color: #0066ff !important;
+    min-height: auto !important;
+    margin-bottom: 1px !important;
+    font-weight: 600 !important;
+    animation: none !important;
+  }
+  .hero-typing-wrapper .cursor-blink { display: none !important; }
+
+  .hero-location {
+    color: #555 !important;
+    -webkit-text-fill-color: #555 !important;
+    font-size: 7.5pt !important;
+    margin-bottom: 3px !important;
+    animation: none !important;
+  }
+
+  .print-contact-row {
+    display: block !important;
+    font-size: 7.5pt !important;
+    color: #333 !important;
+    -webkit-text-fill-color: #333 !important;
+    text-align: center;
+    letter-spacing: 0.2px;
+    padding: 2px 0 0;
+  }
+
+  /* ----- Section Headers ----- */
+  .section-title {
+    font-size: 11pt !important;
+    font-weight: 800 !important;
+    margin-bottom: 4px !important;
+    background: none !important;
+    -webkit-text-fill-color: #0066ff !important;
+    color: #0066ff !important;
+    border-bottom: 2px solid #0066ff !important;
+    padding-bottom: 1px;
+    display: inline-block;
+    break-after: avoid;
+  }
+
+  section > .reveal:first-child {
+    break-after: avoid;
+    break-inside: avoid;
+  }
+
+  /* ----- About ----- */
+  #about {
+    text-align: left !important;
+    padding-top: 6px !important;
+  }
+
+  .about-text {
+    font-size: 8pt !important;
+    color: #333 !important;
+    -webkit-text-fill-color: #333 !important;
+    margin-bottom: 4px !important;
+    line-height: 1.35 !important;
+  }
+
+  .about-stats {
+    gap: 20px !important;
+    justify-content: flex-start !important;
+    margin-bottom: 0 !important;
+  }
+
+  .stat-number {
+    font-size: 1.1rem !important;
+    background: none !important;
+    -webkit-text-fill-color: #0066ff !important;
+    color: #0066ff !important;
+    font-weight: 800 !important;
+  }
+
+  .stat-label {
+    font-size: 5.5pt !important;
+    color: #555 !important;
+    -webkit-text-fill-color: #555 !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  /* ----- Timeline (Experience & Education) ----- */
+  #education {
+    break-inside: avoid;
+  }
+
+  .timeline { padding: 0 !important; }
+  .timeline::before { display: none !important; }
+  .timeline-dot { display: none !important; }
+
+  .timeline-item,
+  .timeline-item:nth-child(odd),
+  .timeline-item:nth-child(even) {
+    width: 100% !important;
+    left: 0 !important;
+    padding: 0 0 1px !important;
+    text-align: left !important;
+    break-inside: avoid;
+  }
+
+  .timeline-card {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+    border-radius: 0 !important;
+    padding: 2px 0 4px !important;
+    cursor: default !important;
+  }
+
+  .timeline-item:last-child .timeline-card {
+    border-bottom: none !important;
+  }
+
+  .timeline-date {
+    font-size: 6.5pt !important;
+    color: #0066ff !important;
+    -webkit-text-fill-color: #0066ff !important;
+    font-weight: 700 !important;
+  }
+
+  .timeline-role {
+    font-size: 9.5pt !important;
+    color: #1a1a2e !important;
+    -webkit-text-fill-color: #1a1a2e !important;
+    margin: 0 !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+  }
+
+  .timeline-company {
+    font-size: 8pt !important;
+    color: #444 !important;
+    -webkit-text-fill-color: #444 !important;
+    margin-bottom: 0 !important;
+    font-weight: 600 !important;
+  }
+
+  .timeline-location {
+    font-size: 6.5pt !important;
+    color: #777 !important;
+    -webkit-text-fill-color: #777 !important;
+    margin-bottom: 1px !important;
+  }
+
+  .timeline-details {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .timeline-details ul { margin-top: 0 !important; }
+
+  .timeline-details li {
+    font-size: 7pt !important;
+    color: #333 !important;
+    -webkit-text-fill-color: #333 !important;
+    padding: 0 0 0 9px !important;
+    line-height: 1.3 !important;
+  }
+
+  .timeline-details li::before {
+    width: 3px !important;
+    height: 3px !important;
+    top: 5px !important;
+    background: #0066ff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .timeline-expand { display: none !important; }
+
+  /* ----- Skills ----- */
+  #skills > .reveal {
+    break-inside: avoid;
+  }
+
+  .skill-category-title {
+    font-size: 6.5pt !important;
+    color: #0066ff !important;
+    -webkit-text-fill-color: #0066ff !important;
+    margin-top: 6px !important;
+    margin-bottom: 2px !important;
+    font-weight: 700 !important;
+    break-after: avoid;
+  }
+  .skill-category-title:first-child { margin-top: 0 !important; }
+
+  .skills-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2px 12px !important;
+  }
+
+  .skill-item {
+    background: transparent !important;
+    border: none !important;
+    padding: 1px 0 !important;
+  }
+
+  .skill-header { margin-bottom: 1px !important; }
+
+  .skill-name {
+    font-size: 7.5pt !important;
+    color: #1a1a2e !important;
+    -webkit-text-fill-color: #1a1a2e !important;
+    font-weight: 600 !important;
+  }
+
+  .skill-percent {
+    font-size: 7pt !important;
+    color: #0066ff !important;
+    -webkit-text-fill-color: #0066ff !important;
+    font-weight: 700 !important;
+  }
+
+  .skill-bar-bg {
+    height: 3px !important;
+    background: #e8ecf0 !important;
+    border: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .skill-bar-fill {
+    background: #0066ff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .skills-other { margin-top: 6px !important; text-align: left !important; }
+
+  .skill-tags {
+    justify-content: flex-start !important;
+    gap: 2px 4px !important;
+    margin-top: 2px !important;
+  }
+
+  .skill-tag {
+    font-size: 6pt !important;
+    padding: 1px 5px !important;
+    border: 1px solid #b0c4de !important;
+    background: #f0f5ff !important;
+    color: #1a1a2e !important;
+    -webkit-text-fill-color: #1a1a2e !important;
+    border-radius: 6px !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ----- Certifications ----- */
+  .cert-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 3px 8px !important;
+  }
+
+  .cert-card {
+    background: transparent !important;
+    border: none !important;
+    border-left: 2px solid #0066ff !important;
+    border-radius: 0 !important;
+    padding: 1px 0 1px 6px !important;
+    break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .cert-card::before { display: none !important; }
+  .cert-icon { display: none !important; }
+  .cert-desc { display: none !important; }
+  .cert-verify { display: none !important; }
+
+  .cert-name {
+    font-size: 7.5pt !important;
+    color: #1a1a2e !important;
+    -webkit-text-fill-color: #1a1a2e !important;
+    margin-bottom: 0 !important;
+    font-weight: 700 !important;
+  }
+
+  .cert-issuer {
+    font-size: 6.5pt !important;
+    color: #444 !important;
+    -webkit-text-fill-color: #444 !important;
+    margin-bottom: 0 !important;
+    font-weight: 600 !important;
+    display: inline !important;
+  }
+
+  .cert-date {
+    font-size: 6.5pt !important;
+    color: #777 !important;
+    -webkit-text-fill-color: #777 !important;
+    margin-bottom: 0 !important;
+    display: inline !important;
+  }
+
+  .cert-date::before {
+    content: " · ";
+    color: #999 !important;
+    -webkit-text-fill-color: #999 !important;
+  }
+
+  /* ----- Recommendations ----- */
+  .recs-list { gap: 4px !important; }
+
+  .rec-card {
+    background: transparent !important;
+    border: none !important;
+    border-left: 2px solid #0066ff !important;
+    border-radius: 0 !important;
+    padding: 2px 0 2px 8px !important;
+    break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .rec-card:nth-child(n+5) { display: none !important; }
+
+  .rec-quote-mark { display: none !important; }
+
+  .rec-text {
+    max-height: none !important;
+    overflow: hidden !important;
+    font-size: 6.5pt !important;
+    color: #333 !important;
+    -webkit-text-fill-color: #333 !important;
+    line-height: 1.35 !important;
+    padding-top: 0 !important;
+    margin-bottom: 2px !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+  }
+
+  .rec-text::after { display: none !important; }
+  .rec-toggle { display: none !important; }
+
+  .rec-author {
+    border-top: none !important;
+    padding-top: 1px !important;
+    gap: 6px !important;
+  }
+
+  .rec-avatar { display: none !important; }
+
+  .rec-name {
+    font-size: 7pt !important;
+    color: #1a1a2e !important;
+    -webkit-text-fill-color: #1a1a2e !important;
+    font-weight: 700 !important;
+    display: inline !important;
+  }
+
+  .rec-author-info .rec-title {
+    font-size: 6pt !important;
+    color: #666 !important;
+    -webkit-text-fill-color: #666 !important;
+    display: inline !important;
+  }
+
+  .rec-author-info .rec-title::before {
+    content: " — ";
+  }
+
+  /* ----- Links ----- */
+  a { color: #1a1a2e !important; -webkit-text-fill-color: #1a1a2e !important; }
+  a[href]::after { content: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- SCROLL PROGRESS -->
+<div id="scroll-progress"></div>
+
+<!-- ===== NAVIGATION ===== -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">NS</div>
+
+    <button class="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#certifications">Certs</a></li>
+      <li><a href="#funstuff">Fun Stuff</a></li>
+      <li><a href="#recommendations">Recs</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="btn-icon" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <button class="btn-icon" onclick="window.print()" title="Print / Save as PDF" aria-label="Print">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <canvas id="particles-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-badge">&#9733; Employee of the Year 2024 &mdash; H/L Agency</div>
+    <h1 class="hero-name">
+      <span class="gradient-text">Neo Saxena</span>
+    </h1>
+    <div class="hero-typing-wrapper">
+      <span id="typed-text"></span><span class="cursor-blink"></span>
+    </div>
+    <p class="hero-location">&#9671; San Ramon, California</p>
+    <div class="print-contact-row" aria-hidden="true">
+      neosaxena@gmail.com &nbsp;|&nbsp; 515-421-2582 &nbsp;|&nbsp; linkedin.com/in/neosaxena &nbsp;|&nbsp; ketsui.info
+    </div>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Get In Touch
+      </a>
+      <button onclick="window.print()" class="btn btn-outline">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </button>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="reveal">
+    <h2 class="section-title">About Me</h2>
+    <p class="section-subtitle">Who I am and what drives me</p>
+  </div>
+  <div class="about-content reveal">
+    <div class="about-photo-wrapper">
+      <div class="about-photo">
+        <img src="photo.png" alt="Neo Saxena">
+      </div>
+    </div>
+    <p class="about-text">
+      Network &amp; IT Operations leader specialized in building and maintaining high-efficiency IT ecosystems. I combine hands-on technical expertise in infrastructure management with a strategic approach to budgeting and process automation. Focused on eliminating technical debt, enhancing cybersecurity postures, and deploying innovative solutions that empower teams to work faster and more securely.
+    </p>
+    <div class="about-ketsui">
+      <strong>&#27770;&#24847; &mdash; Ketsui (Determination):</strong> A positive emotional feeling that involves persevering towards a difficult goal in spite of obstacles. Determination occurs prior to goal attainment and serves to motivate behavior that will help achieve one&rsquo;s goal.
+    </div>
+    <div class="about-ketsui" style="border-left-color: var(--secondary); background: rgba(255,0,110,0.05);">
+      <em>&ldquo;Do not pray for an easy life, pray for the strength to endure a difficult one.&rdquo;</em> &mdash; <strong>Bruce Lee</strong>
+    </div>
+    <div class="about-stats">
+      <div class="stat-item">
+        <div class="stat-number">8+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">8</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">80%</div>
+        <div class="stat-label">Faster Resolution</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">2</div>
+        <div class="stat-label">Degrees</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXPERIENCE ===== -->
+<section id="experience">
+  <div class="reveal">
+    <h2 class="section-title">Experience</h2>
+    <p class="section-subtitle">Click any role to expand details</p>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item reveal-left">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card" onclick="this.classList.toggle('expanded')">
+        <div class="timeline-date">Dec 2023 &mdash; Present</div>
+        <div class="timeline-role">Network &amp; IT Ops Admin</div>
+        <div class="timeline-company">H/L Agency</div>
+        <div class="timeline-location">Oakland, California</div>
+        <div class="timeline-details">
+          <ul>
+            <li>Lead all IT strategy, operations, and cybersecurity initiatives for a 100+ person advertising agency</li>
+            <li>Head IT representative of the agency AI Thinktank &mdash; researching and implementing AI tools, security, and best practices</li>
+            <li>Manage budgets, vendor relations, and IT project delivery on time and within budget</li>
+            <li>Implement cybersecurity measures to protect sensitive data and prevent unauthorized access and AI vulnerabilities</li>
+            <li>Provide SOC recommendations, PCI DSS compliance, and HIPAA compliance within the organization</li>
+            <li><strong>&#9733; Employee of the Year 2024</strong></li>
+          </ul>
+        </div>
+        <div class="timeline-expand">&#9662; click to expand</div>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal-right">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card" onclick="this.classList.toggle('expanded')">
+        <div class="timeline-date">Aug 2021 &mdash; Dec 2023</div>
+        <div class="timeline-role">Network &amp; Systems Administrator</div>
+        <div class="timeline-company">H/L Agency</div>
+        <div class="timeline-location">Oakland, California</div>
+        <div class="timeline-details">
+          <ul>
+            <li>Maintained OKTA and Google Workspace environment with SSO integration across Egnyte, RingCentral, Slack, and more</li>
+            <li>Sole Windows systems technician; provided helpdesk support organization-wide</li>
+            <li>Installed and maintained a video edit server with VPN capabilities</li>
+            <li>Designated main cybersecurity consultant for the organization</li>
+            <li>Decreased solution implementation time by 80% via documentation, ticketing, and email alerts</li>
+            <li>Administered BYOD security through JAMF Pro and MS Azure with configuration profiles and policies</li>
+          </ul>
+        </div>
+        <div class="timeline-expand">&#9662; click to expand</div>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal-left">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card" onclick="this.classList.toggle('expanded')">
+        <div class="timeline-date">Sep 2020 &mdash; Jun 2021</div>
+        <div class="timeline-role">System Administrator</div>
+        <div class="timeline-company">Challenger Sports</div>
+        <div class="timeline-location">Lenexa, Kansas</div>
+        <div class="timeline-details">
+          <ul>
+            <li>Provisioned, configured, and maintained system hardware/software and network infrastructure</li>
+            <li>Managed Windows Server 2012, Active Directory, and Group Policy</li>
+            <li>Supported environments across Mac OS, Chrome OS, and Windows 10</li>
+            <li>Decreased implementation time by 50% via documentation and email ticket alert systems</li>
+            <li>Led technical R&amp;D to drive innovation within organizational infrastructure</li>
+          </ul>
+        </div>
+        <div class="timeline-expand">&#9662; click to expand</div>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal-right">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card" onclick="this.classList.toggle('expanded')">
+        <div class="timeline-date">Jun 2019 &mdash; Aug 2020</div>
+        <div class="timeline-role">Manager of Ticket Operations</div>
+        <div class="timeline-company">Sporting Kansas City</div>
+        <div class="timeline-location">Kansas City, Kansas</div>
+        <div class="timeline-details">
+          <ul>
+            <li>Provided ticketing and technical support for 14-16 person Sales &amp; Service teams</li>
+            <li>Led implementation of Fortress ticket scanners as main contact between BI, IT, and vendor teams</li>
+            <li>Managed and hired game-day box office staff of 10-14 people</li>
+            <li>Decreased ticket location confusion by 90% through centralized real-time accessible lists</li>
+            <li>Maintained and optimized fleet of 15 Windows 10 laptops &mdash; patched, de-bloated, and secured</li>
+          </ul>
+        </div>
+        <div class="timeline-expand">&#9662; click to expand</div>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal-left">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card" onclick="this.classList.toggle('expanded')">
+        <div class="timeline-date">Feb 2018 &mdash; Jun 2019</div>
+        <div class="timeline-role">Junior System Admin &amp; Ops Assistant</div>
+        <div class="timeline-company">Challenger Sports</div>
+        <div class="timeline-location">Lenexa, Kansas</div>
+        <div class="timeline-details">
+          <ul>
+            <li>Provided technical support for hardware, software, and network troubleshooting</li>
+            <li>Implemented Google Classroom for onboarding with course material and testing</li>
+            <li>Created financial tracking system between IT and Finance departments</li>
+            <li>Updated company intranet with accurate resources and operational information</li>
+            <li>Reduced misprinted apparel sent out by 40% through quality control processes</li>
+          </ul>
+        </div>
+        <div class="timeline-expand">&#9662; click to expand</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== EDUCATION ===== -->
+<section id="education">
+  <div class="reveal">
+    <h2 class="section-title">Education</h2>
+    <p class="section-subtitle">Academic foundations</p>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item reveal-left">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="timeline-date">2022</div>
+        <div class="timeline-role">M.S. Cybersecurity &amp; Information Assurance</div>
+        <div class="timeline-company">Western Governors University</div>
+        <div class="timeline-location">Online</div>
+      </div>
+    </div>
+    <div class="timeline-item reveal-right">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="timeline-date">2012 &mdash; 2016</div>
+        <div class="timeline-role">B.S. Sports Management, Minor in Business</div>
+        <div class="timeline-company">University of Kansas</div>
+        <div class="timeline-location">Lawrence, Kansas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section id="skills">
+  <div class="reveal">
+    <h2 class="section-title">Skills &amp; Technologies</h2>
+    <p class="section-subtitle">Core competencies and technical proficiencies</p>
+  </div>
+
+  <div class="reveal">
+    <div class="skill-category-title">Infrastructure &amp; Networking</div>
+    <div class="skills-grid">
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Network Administration</span><span class="skill-percent">95%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="95"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Active Directory / Group Policy</span><span class="skill-percent">92%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="92"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Windows &amp; MacOS Administration</span><span class="skill-percent">95%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="95"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">VMware / Virtualization</span><span class="skill-percent">78%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="78"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <div class="skill-category-title">Security</div>
+    <div class="skills-grid">
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Cybersecurity &amp; Ethical Hacking</span><span class="skill-percent">90%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="90"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Compliance (PCI DSS, HIPAA, SOC)</span><span class="skill-percent">85%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="85"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <div class="skill-category-title">Cloud &amp; Identity</div>
+    <div class="skills-grid">
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Google Workspace / GSuite</span><span class="skill-percent">92%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="92"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">OKTA / SSO / IAM</span><span class="skill-percent">88%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="88"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">JAMF / MDM</span><span class="skill-percent">82%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="82"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">AI &amp; Emerging Technologies</span><span class="skill-percent">75%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="75"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal skills-other">
+    <div class="skill-category-title">Tools &amp; Platforms</div>
+    <div class="skill-tags">
+      <span class="skill-tag">RingCentral</span>
+      <span class="skill-tag">Slack</span>
+      <span class="skill-tag">Egnyte</span>
+      <span class="skill-tag">ASANA</span>
+      <span class="skill-tag">MS Office</span>
+      <span class="skill-tag">Adobe Creative Cloud</span>
+      <span class="skill-tag">Citrix</span>
+      <span class="skill-tag">VPN</span>
+      <span class="skill-tag">Android / iOS</span>
+      <span class="skill-tag">Chromebooks</span>
+      <span class="skill-tag">Cursor</span>
+      <span class="skill-tag">AI Studio</span>
+      <span class="skill-tag">Antigravity</span>
+    </div>
+    <div class="skill-category-title" style="margin-top:28px">Soft Skills</div>
+    <div class="skill-tags">
+      <span class="skill-tag">Project Management</span>
+      <span class="skill-tag">Team Leadership</span>
+      <span class="skill-tag">Strategic Planning</span>
+      <span class="skill-tag">Budget Management</span>
+      <span class="skill-tag">Process Automation</span>
+      <span class="skill-tag">Cross-Department Coordination</span>
+      <span class="skill-tag">Innovation</span>
+      <span class="skill-tag">Time Management</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CERTIFICATIONS ===== -->
+<section id="certifications">
+  <div class="reveal">
+    <h2 class="section-title">Certifications</h2>
+    <p class="section-subtitle">Professional credentials and achievements</p>
+  </div>
+  <div class="cert-grid">
+    <div class="cert-card reveal">
+      <div class="cert-icon eccouncil">&#128737;</div>
+      <div class="cert-name">Certified Ethical Hacker (CEH)</div>
+      <div class="cert-issuer">EC-Council</div>
+      <div class="cert-date">2022</div>
+      <div class="cert-desc">The gold standard ethical hacking certification recognized globally. Demonstrates advanced penetration testing and vulnerability assessment skills.</div>
+      <a href="https://drive.google.com/file/d/1VgwAIzWVfOxTWBpDF3ewe4Z9ZkSB__wA/view" target="_blank" rel="noopener" class="cert-verify">Verify Credential &rarr;</a>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-icon comptia">&#128274;</div>
+      <div class="cert-name">Security Analytics Professional (CSAP)</div>
+      <div class="cert-issuer">CompTIA</div>
+      <div class="cert-date">2021</div>
+      <div class="cert-desc">Validates ability to plan and carry out security measures to protect an organization's computer networks and systems with analytics-driven approaches.</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-icon comptia">&#128200;</div>
+      <div class="cert-name">CompTIA CySA+</div>
+      <div class="cert-issuer">CompTIA</div>
+      <div class="cert-date">2022</div>
+      <div class="cert-desc">Cybersecurity Analyst certification validating the ability to leverage intelligence and threat detection tools, analyze data, and identify vulnerabilities.</div>
+      <a href="https://drive.google.com/file/d/133Ry1yisYa3Wu0ZCTEx-0D1NJjKHGKmD/view" target="_blank" rel="noopener" class="cert-verify">Verify Credential &rarr;</a>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-icon comptia">&#128737;</div>
+      <div class="cert-name">CompTIA Security+</div>
+      <div class="cert-issuer">CompTIA</div>
+      <div class="cert-date">2019 &bull; Expires Jul 2027</div>
+      <div class="cert-desc">Core security skills certification covering threat management, cryptography, identity management, and security infrastructure.</div>
+      <a href="https://drive.google.com/open?id=1yDd3RZO5i9DdCuZ4yffiuqx78LA6ca_U" target="_blank" rel="noopener" class="cert-verify">Verify Credential &rarr;</a>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-icon comptia">&#127760;</div>
+      <div class="cert-name">CompTIA Network+</div>
+      <div class="cert-issuer">CompTIA</div>
+      <div class="cert-date">2019 &bull; Expires Jul 2027</div>
+      <div class="cert-desc">Validates essential networking skills including design, configuration, management, and troubleshooting of wired and wireless networks.</div>
+      <a href="https://drive.google.com/open?id=1uecliFUJbL5mSeOeeIDFVIdMIilVsmRP" target="_blank" rel="noopener" class="cert-verify">Verify Credential &rarr;</a>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-icon comptia">&#128421;</div>
+      <div class="cert-name">CompTIA A+</div>
+      <div class="cert-issuer">CompTIA</div>
+      <div class="cert-date">2019 &bull; Expires Jul 2027</div>
+      <div class="cert-desc">Industry-standard certification for establishing an IT career, covering hardware, software, troubleshooting, and operational procedures.</div>
+      <a href="https://drive.google.com/open?id=1bzXWM5TyvwhxOCWrou9uJaM-RD-k-mFA" target="_blank" rel="noopener" class="cert-verify">Verify Credential &rarr;</a>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-icon google">&#9729;</div>
+      <div class="cert-name">Google IT Support Professional</div>
+      <div class="cert-issuer">Google</div>
+      <div class="cert-date">2020</div>
+      <div class="cert-desc">Five-course certificate covering troubleshooting, networking, operating systems, system administration, and security fundamentals.</div>
+      <a href="https://www.youracclaim.com/badges/3c402a25-e725-4627-8fab-df1c3f86dfdf/public_url" target="_blank" rel="noopener" class="cert-verify">Verify Credential &rarr;</a>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-icon eccouncil">&#129302;</div>
+      <div class="cert-name">AI Security: Prompt Injection</div>
+      <div class="cert-issuer">Coursera</div>
+      <div class="cert-date">2024</div>
+      <div class="cert-desc">Specialized course on AI security vulnerabilities, prompt injection attacks, and defensive strategies for enterprise AI deployments.</div>
+      <a href="https://coursera.org/share/94f1a4ca71ff25a10d3ea6677203a771" target="_blank" rel="noopener" class="cert-verify">Verify Credential &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FUN STUFF ===== -->
+<section id="funstuff">
+  <div class="reveal">
+    <h2 class="section-title">Fun Stuff</h2>
+    <p class="section-subtitle">Beyond the 9-to-5</p>
+  </div>
+
+  <div class="fun-tabs reveal">
+    <button class="fun-tab active" onclick="switchTab('books')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      Books I Love
+    </button>
+    <button class="fun-tab" onclick="switchTab('projects')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      Projects &amp; AI
+    </button>
+  </div>
+
+  <!-- BOOKS TAB -->
+  <div class="fun-panel active" id="panel-books" data-tab-title="Books I Love">
+    <div class="books-grid">
+      <div class="book-card reveal" style="grid-column: span 1;">
+        <div class="book-spine" style="height:100px; width:70px; background: linear-gradient(135deg, #8b0000, #cc0000); font-size:1rem; color:#fff; padding:6px; line-height:1.2; font-weight:700;">THINK &amp;<br>GROW<br>RICH!</div>
+        <div class="book-title">Think and Grow Rich</div>
+        <div class="book-author">Napoleon Hill</div>
+        <div style="font-size:0.75rem; color:var(--accent); margin-top:6px; font-weight:600;">&#9733; Must Read</div>
+      </div>
+      <div class="book-card reveal">
+        <div class="book-spine">&#128218;</div>
+        <div class="book-title">The Art of War</div>
+        <div class="book-author">Sun Tzu</div>
+      </div>
+      <div class="book-card reveal">
+        <div class="book-spine">&#128272;</div>
+        <div class="book-title">Zero Trust Networks</div>
+        <div class="book-author">Gilman &amp; Barth</div>
+      </div>
+      <div class="book-card reveal">
+        <div class="book-spine">&#128187;</div>
+        <div class="book-title">The Phoenix Project</div>
+        <div class="book-author">Kim, Behr &amp; Spafford</div>
+      </div>
+      <div class="book-card reveal">
+        <div class="book-spine">&#128161;</div>
+        <div class="book-title">The 7 Habits of Highly Effective People</div>
+        <div class="book-author">Stephen Covey</div>
+      </div>
+      <div class="book-card reveal">
+        <div class="book-spine">&#128640;</div>
+        <div class="book-title">Start with Why</div>
+        <div class="book-author">Simon Sinek</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERSONAL PROJECTS & AI CREATIONS TAB -->
+  <div class="fun-panel" id="panel-projects" data-tab-title="Personal Projects &amp; AI Creations">
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-name">&#9917; Quest For The Quest</div>
+        <div class="project-desc">A soccer-themed game created for fun, blending a love of sports and technology into an interactive experience.</div>
+        <div class="project-tags">
+          <span class="project-tag">Game Dev</span>
+          <span class="project-tag">Sports</span>
+          <span class="project-tag">Interactive</span>
+        </div>
+        <a href="https://scratch.mit.edu/projects/1015579498/embed" target="_blank" rel="noopener" class="project-link">View Project &rarr;</a>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-name">&#129302; The Evolution of Generative AI</div>
+        <div class="project-desc">A comprehensive website and presentation exploring generative AI beyond text and images &mdash; covering the evolution, current state, and future of the technology.</div>
+        <div class="project-tags">
+          <span class="project-tag">AI/ML</span>
+          <span class="project-tag">Research</span>
+          <span class="project-tag">Presentation</span>
+        </div>
+        <a href="https://the-evolution-of-generat-xzr2bb4.gamma.site/" target="_blank" rel="noopener" class="project-link">View Project &rarr;</a>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-name">&#127925; ConflagrantTurntablism157</div>
+        <div class="project-desc">AI-generated music creation on Suno &mdash; exploring the intersection of artificial intelligence and creative music production.</div>
+        <div class="project-tags">
+          <span class="project-tag">AI Music</span>
+          <span class="project-tag">Suno</span>
+          <span class="project-tag">Creative</span>
+        </div>
+        <a href="https://suno.com/@conflagrantturntablism157" target="_blank" rel="noopener" class="project-link">View Project &rarr;</a>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-name">&#127760; Ketsui.info</div>
+        <div class="project-desc">Personal website and digital portfolio showcasing work, philosophy, and professional journey. Built with &#27770;&#24847; (determination).</div>
+        <div class="project-tags">
+          <span class="project-tag">Web</span>
+          <span class="project-tag">Portfolio</span>
+          <span class="project-tag">Personal Brand</span>
+        </div>
+        <a href="https://www.ketsui.info" target="_blank" rel="noopener" class="project-link">View Project &rarr;</a>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-name">&#128737; AI Security Research</div>
+        <div class="project-desc">Completed AI Security Prompt Injection course and contributed to Lakera AI Security. Researching AI vulnerabilities and enterprise implementation safeguards.</div>
+        <div class="project-tags">
+          <span class="project-tag">AI Security</span>
+          <span class="project-tag">Prompt Injection</span>
+          <span class="project-tag">Lakera</span>
+        </div>
+        <a href="https://coursera.org/share/94f1a4ca71ff25a10d3ea6677203a771" target="_blank" rel="noopener" class="project-link">Prompt Injection Course &rarr;</a>
+        <a href="https://drive.google.com/file/d/1QamNuh-e4wwvVDRheY6vrR87S9IZ9HYD/view" target="_blank" rel="noopener" class="project-link" style="margin-left:12px;">Lakera Contribution &rarr;</a>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-name">&#128170; Health &amp; Fitness</div>
+        <div class="project-desc">Dedicated to physical fitness &mdash; documenting unique push-up variations including 3-finger push-ups and tiger push-ups. Health is important!</div>
+        <div class="project-tags">
+          <span class="project-tag">Fitness</span>
+          <span class="project-tag">Wellness</span>
+          <span class="project-tag">Discipline</span>
+        </div>
+        <a href="https://www.ketsui.info/fun-stuff#h.58uynvbv9vlw" target="_blank" rel="noopener" class="project-link">View Project &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ===== RECOMMENDATIONS ===== -->
+<section id="recommendations">
+  <div class="reveal">
+    <h2 class="section-title">Recommendations</h2>
+    <p class="section-subtitle">What colleagues and leaders have to say</p>
+  </div>
+  <div class="recs-list reveal">
+
+      <div class="rec-card reveal">
+        <div class="rec-quote-mark">&ldquo;</div>
+        <div class="rec-text">
+          1. High-Level Reliability &amp; Trust &mdash; Neo is extremely knowledgeable about our IT systems and is always available to resolve issues quickly. He has access to all internal systems, including email and server access, which includes sensitive data, and having trust in him and his integrity is imperative. Neo provides peace of mind that our internal technology will always run smoothly, even when problems arise. 2. Strategic Business Alignment &mdash; Neo has valuable foresight into the trajectory of our company. He has a scalability mindset that helps us not only today, but also for the future. Neo is also mindful of our approach to risk management and provides a proactive approach to cybersecurity that protects us from data breaches. 3. Professional Reputation &amp; Internal Influence &mdash; Neo has a great reputation for cross departmental collaboration and support. He is known as a bridge builder and someone who gets things done. He is always quick to respond with solutions and easy to understand advice, and he is very calm when the pressure elevates. 4. Leadership &amp; Ownership &mdash; Neo is a &ldquo;go to&rdquo; leader for solutions necessary in the heat of the moment. Whether it is client meeting presentations that have technical issues, or everyday use of internal agency platforms, Neo is seen as a reliable leader. Neo has also embraced, and participated in the progress of, the agency&rsquo;s technology evolution, particularly with AI specific tools. He is a key contributor to our AI Think Tank and is always looking to keep the agency moving forward and embracing effective ways to provide better products for our clients.
+        </div>
+        <button class="rec-toggle" onclick="toggleRec(this)">Read more</button>
+        <div class="rec-author">
+          <div class="rec-avatar"><img src="img/trey.png" alt="Trey Curtola"></div>
+          <div class="rec-author-info">
+            <div class="rec-name">Trey Curtola</div>
+            <div class="rec-title">Chairman &amp; CEO, H/L Agency &middot; Feb 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rec-card reveal">
+        <div class="rec-quote-mark">&ldquo;</div>
+        <div class="rec-text">
+          I had the pleasure of working with Neo at H/L Agency, where he consistently demonstrated deep expertise in network IT and operations administration. I consider myself competent across most IT tasks, but when I encountered the most complex challenges, Neo was always my go-to. He handled even the most difficult issues with ease, professionalism, and a calm confidence that put everyone at ease. Across the broader team, I watched Neo approach every request with the same level of care and attention. Nothing was too small or too complex for him to tackle. He brought both technical precision and a genuinely positive attitude to his work, which made a real difference in our day-to-day operations. Beyond his technical contributions, Neo played an important role in shaping a strong and inclusive culture at H/L. He made a point to welcome new employees and ensure they felt comfortable and supported. His empathy stood out, especially in a hybrid and work-from-home environment, where he would proactively reach out to colleagues who seemed isolated or still finding their footing. Neo also helped foster connection beyond the work itself. We started a movie club at the office where we screened films and discussed their cinematic elements, creating a space for creative conversation and team bonding. Neo is not only an exceptional IT professional, but also someone who elevates the culture of any organization he is part of. I highly recommend him.
+        </div>
+        <button class="rec-toggle" onclick="toggleRec(this)">Read more</button>
+        <div class="rec-author">
+          <div class="rec-avatar"><img src="img/jeremy.png" alt="Jeremy Cobb"></div>
+          <div class="rec-author-info">
+            <div class="rec-name">Jeremy Cobb</div>
+            <div class="rec-title">VP of Digital Platforms, H/L Agency &middot; Feb 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rec-card reveal">
+        <div class="rec-quote-mark">&ldquo;</div>
+        <div class="rec-text">
+          Neo is an invaluable asset not only to our IT department but our entire agency. His technical knowledge is truly immeasurable, yet he has the rare ability to translate complex issues for a high volume of users across all levels of technical experience. I also love his dedication to problem-solving; if an immediate answer isn&rsquo;t available, Neo won&rsquo;t rest until he has researched a creative alternative or a foolproof solution. He is seemingly always available to help, bringing a calm and reliable presence to even the most high-pressure technical challenges.
+        </div>
+        <button class="rec-toggle" onclick="toggleRec(this)">Read more</button>
+        <div class="rec-author">
+          <div class="rec-avatar"><img src="img/michelle.png" alt="Michelle Loehr"></div>
+          <div class="rec-author-info">
+            <div class="rec-name">Michelle Loehr</div>
+            <div class="rec-title">VP, Group Media Director, H/L Agency &middot; Feb 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rec-card reveal">
+        <div class="rec-quote-mark">&ldquo;</div>
+        <div class="rec-text">
+          Neo&rsquo;s deep knowledge in his role as Network &amp; IT Operations Administrator earned him the reputation of being the &ldquo;problem solver&rdquo; and &ldquo;go to person.&rdquo; Neo always provided peace of mind to the management team. He is trustworthy and used discretion in working with sensitive information and data. He worked with our teams to create scalability in designing our systems with cost efficiency in mind, and he proactively worked to continually advance the agency cybersecurity systems. Neo was a cross-departmental collaborator, good under pressure, and could always turn &ldquo;tech speak&rdquo; into comprehensible and actionable information for our non-technical staff. No matter the day or time of day, Neo met the challenge at hand.
+        </div>
+        <button class="rec-toggle" onclick="toggleRec(this)">Read more</button>
+        <div class="rec-author">
+          <div class="rec-avatar"><img src="img/andrea.png" alt="Andrea Alfano"></div>
+          <div class="rec-author-info">
+            <div class="rec-name">Andrea Alfano</div>
+            <div class="rec-title">CEO, H/L Agency &middot; Jan 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rec-card reveal">
+        <div class="rec-quote-mark">&ldquo;</div>
+        <div class="rec-text">
+          It is with great pleasure that I write this recommendation for Neo, who has served as a Network &amp; IT Operations Administrator at H/L Agency for the past three years. During his tenure, Neo has demonstrated exceptional technical skills, strong problem-solving abilities, and an unwavering dedication to his role. From the beginning, Neo has been an invaluable asset to our team. His expertise in network administration, cybersecurity, and systems management has significantly improved the efficiency and security of our IT infrastructure. Neo&rsquo;s proactive approach to identifying and resolving technical issues has minimized downtime and ensured smooth operations across all departments. Neo is not only technically proficient but also an excellent communicator. He has a unique ability to explain complex technical concepts in a manner that is easily understandable to non-technical staff, fostering a collaborative and supportive work environment. His patience and willingness to assist colleagues with IT-related concerns have made him a go-to resource within the company. One of Neo&rsquo;s standout projects was the successful implementation of new company-wide software systems. His meticulous planning, coordination, and execution of this project were instrumental in its seamless rollout. In addition to his technical capabilities, Neo has consistently demonstrated strong leadership qualities. He has mentored junior IT staff, providing guidance and support to help them develop their skills and grow within their roles. Neo&rsquo;s contributions to H/L Agency have been invaluable. I wholeheartedly recommend Neo for any IT Manager position and believe he will be a tremendous asset to your team.
+        </div>
+        <button class="rec-toggle" onclick="toggleRec(this)">Read more</button>
+        <div class="rec-author">
+          <div class="rec-avatar"><img src="img/jay.png" alt="Jay Geiger"></div>
+          <div class="rec-author-info">
+            <div class="rec-name">Jay Geiger</div>
+            <div class="rec-title">CFO, H/L Agency</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rec-card reveal">
+        <div class="rec-quote-mark">&ldquo;</div>
+        <div class="rec-text">
+          Neo has an impressive depth of knowledge in all areas of data security and has consistently demonstrated his ability to deliver exceptional results. He possesses a rare combination of technical skills, creativity, and problem-solving abilities, which enable him to consistently exceed expectations and deliver outstanding work. Neo is always willing to go the extra mile to ensure that his work meets the highest standards of quality. He is self-motivated and proactive &mdash; always eager to take on new challenges and learn new skills. In addition to his technical capabilities, Neo is an exceptional team player, who is always willing to collaborate with others and provide valuable insights/feedback. He is an effective communicator who can explain complex technical concepts in a clear and concise manner, making him an asset to any project team. Neo is a person of integrity, and his work ethic and commitment to excellence have earned him the respect of his colleagues. I would highly recommend Neo Saxena for any position that requires exceptional technical capabilities, creativity, and a commitment to excellence.
+        </div>
+        <button class="rec-toggle" onclick="toggleRec(this)">Read more</button>
+        <div class="rec-author">
+          <div class="rec-avatar"><img src="img/david.png" alt="David Latham"></div>
+          <div class="rec-author-info">
+            <div class="rec-name">David Latham</div>
+            <div class="rec-title">Director of IT, H/L Agency &middot; Apr 2023</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rec-card reveal">
+        <div class="rec-quote-mark">&ldquo;</div>
+        <div class="rec-text">
+          Nitin Saxena served as the Manager, Ticket Operations at Sporting Kansas City. During his time with the organization, Nitin was a dependable associate who always had a positive attitude and great work ethic. Nitin was an asset to the team, always willing to assist with any task and never shied away from taking on additional responsibilities. In addition, Nitin was motivated and interested in learning. To this end, he often jumped in to help with other departments when the need arose to ensure our associates and fans had excellent experiences at Children&rsquo;s Mercy Park. Nitin&rsquo;s position was eliminated due to the COVID-19 pandemic and, unfortunately, we will no longer be lucky enough to have his services. He will be missed, and I highly recommend him to any future employer, volunteer organization, or sports organization whom he is interested in joining.
+        </div>
+        <button class="rec-toggle" onclick="toggleRec(this)">Read more</button>
+        <div class="rec-author">
+          <div class="rec-avatar"><img src="img/jordan_kelsey.png" alt="Jordan Kelsey"></div>
+          <div class="rec-author-info">
+            <div class="rec-name">Jordan Kelsey</div>
+            <div class="rec-title">VP, Ticket Sales &amp; Service, Sporting Kansas City &middot; Sep 2020</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rec-card reveal">
+        <div class="rec-quote-mark">&ldquo;</div>
+        <div class="rec-text">
+          Neo and I worked together at Sporting Kansas City for 4 years. I thoroughly enjoyed my time working with Neo, and came to know him as a truly valuable asset to absolutely any team. He is honest, dependable, and incredibly hard-working. Beyond that, he brings a wealth of knowledge and is an incredibly fast learner. Along with his undeniable talent, Neo has always been an absolute joy to work with. He is a true team player, and always manages to foster positive discussions and bring the best out of other employees. Without a doubt, I confidently recommend Neo to join your team. As a dedicated and knowledgeable employee and an all-around great person, I know that he will be a beneficial addition to your organization.
+        </div>
+        <button class="rec-toggle" onclick="toggleRec(this)">Read more</button>
+        <div class="rec-author">
+          <div class="rec-avatar">JF</div>
+          <div class="rec-author-info">
+            <div class="rec-name">Jordan Fitzpatrick</div>
+            <div class="rec-title">Director, Ticket Operations, Sporting Kansas City</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rec-card reveal">
+        <div class="rec-quote-mark">&ldquo;</div>
+        <div class="rec-text">
+          I was one of Nitin&rsquo;s supervisors for nearly one year whilst he worked with us at Challenger Sports. During that time Nitin displayed an exemplary performance record no matter the difficulty or challenging nature of tasks delegated to him. His work ethic was second to none, and he showed himself to be very reliable. All problems were attacked with enthusiasm and patience, and of course, a high level of intelligent problem-solving. He constantly used his technical expertise to help our company improve our internal systems and connections between the wider work force and the central IT department at our head office. One example of this would be how he assisted with building out an internal intranet system of 100+ pages to better build the knowledge and familiarity gap between our regional staff (80 people) and our head office (around 150 if you include seasonal workers). This made a great difference to our company culture.
+        </div>
+        <button class="rec-toggle" onclick="toggleRec(this)">Read more</button>
+        <div class="rec-author">
+          <div class="rec-avatar"><img src="img/dan_miller.png" alt="Daniel Miller"></div>
+          <div class="rec-author-info">
+            <div class="rec-name">Daniel Miller</div>
+            <div class="rec-title">Director of Information Systems, Challenger Sports &middot; Jun 2019</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rec-card reveal">
+        <div class="rec-quote-mark">&ldquo;</div>
+        <div class="rec-text">
+          At Challenger Sports/Challenger Teamwear, Nitin worked directly under me as an Assistant Systems Admin for approximately one year. While in this position Nitin demonstrated many abilities and skill sets, as well as an admirable work ethic. Nitin was first-rate in almost every aspect of his position. He was able to effectively troubleshoot technical issues with as little interruption to operations as possible. He was also able to manage projects delegated to him in an efficient and timely manner and would even voluntarily take on new projects when his workload was small. During his time here at Challenger, he re-evaluated and optimized multiple processes and systems for the organization. One example would be his optimization of the IT Department&rsquo;s invoicing and receipt system.
+        </div>
+        <button class="rec-toggle" onclick="toggleRec(this)">Read more</button>
+        <div class="rec-author">
+          <div class="rec-avatar">JW</div>
+          <div class="rec-author-info">
+            <div class="rec-name">Joe Whitten</div>
+            <div class="rec-title">IT Manager/Security Admin, Challenger Sports &middot; Jul 2019</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rec-card reveal">
+        <div class="rec-quote-mark">&ldquo;</div>
+        <div class="rec-text">
+          Although I was not his immediate supervisor during his employment at Challenger Teamwear, I monitored his job performance very closely, although, given the professionalism and performance of such an employee, little supervision is required. Neo is our Information Technology Support. He has been promoted into this role after starting in the company as a help desk assistant, mainly because of his desire to continually learn new technology and help apply it in our business practices. He is always enthusiastic and upbeat and is certainly a popular staff member among his fellow workers. In addition to his technology role, Neo has also assisted our management team in designing company policies and procedures, including departmental work in progress flow. There seems to be no task that Neo could not meet the challenge. Being an owner and employer of almost one hundred full-time staff and over a thousand part-time summer sports coaches, I can certainly testify that Neo has the intelligence, morals, and ethics that prospective employers search for. I am sure he would be an excellent choice for almost any position or career path he decided to focus on.
+        </div>
+        <button class="rec-toggle" onclick="toggleRec(this)">Read more</button>
+        <div class="rec-author">
+          <div class="rec-avatar"><img src="img/paul.png" alt="Paul Lawrence"></div>
+          <div class="rec-author-info">
+            <div class="rec-name">Paul Lawrence</div>
+            <div class="rec-title">CEO, Challenger Sports</div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+  <div class="reveal">
+    <h2 class="section-title">Get In Touch</h2>
+    <p class="section-subtitle">Let's connect and build something great</p>
+  </div>
+  <div class="contact-grid reveal">
+    <a href="mailto:neosaxena@gmail.com" class="contact-item">
+      <div class="contact-icon email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <div>
+        <div class="contact-label">Email</div>
+        <div class="contact-value">neosaxena@gmail.com</div>
+      </div>
+    </a>
+    <a href="tel:+15154212582" class="contact-item">
+      <div class="contact-icon phone">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </div>
+      <div>
+        <div class="contact-label">Phone</div>
+        <div class="contact-value">515-421-2582</div>
+      </div>
+    </a>
+    <a href="https://linkedin.com/in/neosaxena" target="_blank" rel="noopener" class="contact-item">
+      <div class="contact-icon linkedin">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </div>
+      <div>
+        <div class="contact-label">LinkedIn</div>
+        <div class="contact-value">in/neosaxena</div>
+      </div>
+    </a>
+    <a href="https://www.ketsui.info" target="_blank" rel="noopener" class="contact-item">
+      <div class="contact-icon web">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <div>
+        <div class="contact-label">Website</div>
+        <div class="contact-value">ketsui.info</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 Nitin (Neo) Saxena &mdash; Built with &#27770;&#24847; (Determination)</p>
+</footer>
+
+<script>
+/* ===== THEME TOGGLE ===== */
+(function initTheme() {
+  var saved = localStorage.getItem('resume-theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+})();
+
+function toggleTheme() {
+  var html = document.documentElement;
+  var current = html.getAttribute('data-theme');
+  var next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('resume-theme', next);
+  updateThemeIcon(next);
+}
+
+function updateThemeIcon(theme) {
+  var icon = document.getElementById('themeIcon');
+  if (theme === 'light') {
+    icon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+  } else {
+    icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  }
+}
+
+updateThemeIcon(document.documentElement.getAttribute('data-theme'));
+
+/* ===== MOBILE NAV ===== */
+function toggleMobileNav() {
+  document.getElementById('navLinks').classList.toggle('mobile-open');
+}
+
+document.querySelectorAll('.nav-links a').forEach(function(link) {
+  link.addEventListener('click', function() {
+    document.getElementById('navLinks').classList.remove('mobile-open');
+  });
+});
+
+/* ===== SCROLL PROGRESS ===== */
+window.addEventListener('scroll', function() {
+  var scrollTop = window.scrollY;
+  var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  document.getElementById('scroll-progress').style.width = progress + '%';
+});
+
+/* ===== ACTIVE NAV HIGHLIGHTING ===== */
+var sections = document.querySelectorAll('section[id]');
+var navAnchors = document.querySelectorAll('.nav-links a');
+
+function highlightNav() {
+  var scrollPos = window.scrollY + 100;
+  sections.forEach(function(section) {
+    var top = section.offsetTop;
+    var bottom = top + section.offsetHeight;
+    var id = section.getAttribute('id');
+    navAnchors.forEach(function(a) {
+      if (a.getAttribute('href') === '#' + id) {
+        if (scrollPos >= top && scrollPos < bottom) {
+          a.classList.add('active');
+        } else {
+          a.classList.remove('active');
+        }
+      }
+    });
+  });
+}
+
+window.addEventListener('scroll', highlightNav);
+highlightNav();
+
+/* ===== PARTICLE CANVAS ===== */
+(function initParticles() {
+  var canvas = document.getElementById('particles-canvas');
+  var ctx = canvas.getContext('2d');
+  var particles = [];
+  var PARTICLE_COUNT = 60;
+  var MAX_DIST = 120;
+  var animFrame;
+
+  function resize() {
+    canvas.width = canvas.parentElement.offsetWidth;
+    canvas.height = canvas.parentElement.offsetHeight;
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  function Particle() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.vx = (Math.random() - 0.5) * 0.5;
+    this.vy = (Math.random() - 0.5) * 0.5;
+    this.r = Math.random() * 2 + 1;
+  }
+
+  for (var i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push(new Particle());
+  }
+
+  function getColor() {
+    var theme = document.documentElement.getAttribute('data-theme');
+    return theme === 'light'
+      ? { dot: 'rgba(37,99,235,0.5)', line: 'rgba(37,99,235,0.1)' }
+      : { dot: 'rgba(0,212,255,0.6)', line: 'rgba(0,212,255,0.12)' };
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var colors = getColor();
+
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = colors.dot;
+      ctx.fill();
+
+      for (var j = i + 1; j < particles.length; j++) {
+        var p2 = particles[j];
+        var dx = p.x - p2.x;
+        var dy = p.y - p2.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < MAX_DIST) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.strokeStyle = colors.line;
+          ctx.lineWidth = 1 - dist / MAX_DIST;
+          ctx.stroke();
+        }
+      }
+    }
+
+    animFrame = requestAnimationFrame(draw);
+  }
+
+  draw();
+
+  var heroSection = document.getElementById('hero');
+  var observer = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting) {
+      if (!animFrame) draw();
+    } else {
+      cancelAnimationFrame(animFrame);
+      animFrame = null;
+    }
+  }, { threshold: 0.1 });
+  observer.observe(heroSection);
+})();
+
+/* ===== TYPING EFFECT ===== */
+(function initTyping() {
+  var phrases = [
+    'Network & IT Ops Admin',
+    'Cybersecurity Specialist',
+    'Network Administrator',
+    'Systems Engineer',
+    'AI Thinktank Lead',
+    'Problem Solver'
+  ];
+  var el = document.getElementById('typed-text');
+  var phraseIdx = 0;
+  var charIdx = 0;
+  var isDeleting = false;
+  var typeSpeed = 80;
+  var deleteSpeed = 40;
+  var pauseEnd = 2000;
+  var pauseStart = 500;
+
+  function tick() {
+    var current = phrases[phraseIdx];
+    if (isDeleting) {
+      charIdx--;
+      el.textContent = current.substring(0, charIdx);
+      if (charIdx === 0) {
+        isDeleting = false;
+        phraseIdx = (phraseIdx + 1) % phrases.length;
+        setTimeout(tick, pauseStart);
+        return;
+      }
+      setTimeout(tick, deleteSpeed);
+    } else {
+      charIdx++;
+      el.textContent = current.substring(0, charIdx);
+      if (charIdx === current.length) {
+        isDeleting = true;
+        setTimeout(tick, pauseEnd);
+        return;
+      }
+      setTimeout(tick, typeSpeed);
+    }
+  }
+
+  tick();
+})();
+
+/* ===== SCROLL REVEAL ANIMATION ===== */
+(function initReveal() {
+  var reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(function(el) { observer.observe(el); });
+})();
+
+/* ===== SKILL BAR ANIMATION ===== */
+(function initSkillBars() {
+  var bars = document.querySelectorAll('.skill-bar-fill');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var target = entry.target;
+        var width = target.getAttribute('data-width');
+        target.style.width = width + '%';
+      }
+    });
+  }, { threshold: 0.3 });
+
+  bars.forEach(function(bar) { observer.observe(bar); });
+})();
+
+/* ===== FUN STUFF TABS ===== */
+function switchTab(tabName) {
+  document.querySelectorAll('.fun-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.fun-panel').forEach(function(p) { p.classList.remove('active'); });
+
+  event.currentTarget.classList.add('active');
+  document.getElementById('panel-' + tabName).classList.add('active');
+}
+
+/* ===== RECOMMENDATION EXPAND ===== */
+function toggleRec(btn) {
+  var card = btn.closest('.rec-card');
+  card.classList.toggle('expanded');
+  btn.textContent = card.classList.contains('expanded') ? 'Read less' : 'Read more';
+}
+
+/* ===== PRINT PREPARATION ===== */
+window.addEventListener('beforeprint', function() {
+  var typed = document.getElementById('typed-text');
+  if (typed) typed.textContent = 'Network & IT Ops Admin | Cybersecurity Specialist';
+
+  document.querySelectorAll('.skill-bar-fill').forEach(function(bar) {
+    var w = bar.getAttribute('data-width');
+    if (w) bar.style.width = w + '%';
+  });
+
+  document.querySelectorAll('.timeline-card').forEach(function(card) {
+    card.classList.add('expanded');
+  });
+});
+</script>
+
+</body>
+</html>
