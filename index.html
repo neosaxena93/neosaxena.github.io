@@ -905,24 +905,19 @@ nav {
   box-shadow: var(--shadow-hover);
 }
 
-.book-spine {
-  width: 60px;
-  height: 80px;
-  border-radius: 4px;
+.book-cover {
+  width: 120px;
+  height: 180px;
+  border-radius: 6px;
   margin: 0 auto 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8rem;
+  object-fit: cover;
+  box-shadow: 4px 4px 12px rgba(0,0,0,0.3), 0 0 1px rgba(0,0,0,0.2);
+  transition: transform var(--transition);
 }
 
-.book-card:nth-child(1) .book-spine { background: linear-gradient(135deg, #ff006e22, #ff006e44); }
-.book-card:nth-child(2) .book-spine { background: linear-gradient(135deg, #00d4ff22, #00d4ff44); }
-.book-card:nth-child(3) .book-spine { background: linear-gradient(135deg, #ffa50022, #ffa50044); }
-.book-card:nth-child(4) .book-spine { background: linear-gradient(135deg, #a855f722, #a855f744); }
-.book-card:nth-child(5) .book-spine { background: linear-gradient(135deg, #10b98122, #10b98144); }
-.book-card:nth-child(6) .book-spine { background: linear-gradient(135deg, #f4364c22, #f4364c44); }
-.book-card:nth-child(7) .book-spine { background: linear-gradient(135deg, #e5450022, #e5450044); }
+.book-card:hover .book-cover {
+  transform: scale(1.05);
+}
 
 .book-title {
   font-weight: 700;
@@ -1152,8 +1147,6 @@ nav {
 
 .contact-icon svg { width: 20px; height: 20px; }
 
-.contact-icon.email { background: rgba(0,212,255,0.1); color: var(--primary); }
-.contact-icon.phone { background: rgba(168,85,247,0.1); color: var(--accent2); }
 .contact-icon.linkedin { background: rgba(37,99,235,0.12); color: #0a66c2; }
 .contact-icon.web { background: rgba(255,0,110,0.1); color: var(--secondary); }
 
@@ -1754,7 +1747,7 @@ footer {
     </div>
     <p class="hero-location">&#9671; San Ramon, California</p>
     <div class="print-contact-row" aria-hidden="true">
-      neosaxena@gmail.com &nbsp;|&nbsp; 515-421-2582 &nbsp;|&nbsp; linkedin.com/in/neosaxena &nbsp;|&nbsp; ketsui.info
+      linkedin.com/in/neosaxena &nbsp;|&nbsp; ketsui.info
     </div>
     <div class="hero-cta">
       <a href="#contact" class="btn btn-primary">
@@ -2145,39 +2138,39 @@ footer {
   <!-- BOOKS TAB -->
   <div class="fun-panel active" id="panel-books" data-tab-title="Books I Love">
     <div class="books-grid">
-      <div class="book-card reveal" style="grid-column: span 1;">
-        <div class="book-spine" style="height:100px; width:70px; background: linear-gradient(135deg, #8b0000, #cc0000); font-size:1rem; color:#fff; padding:6px; line-height:1.2; font-weight:700;">THINK &amp;<br>GROW<br>RICH!</div>
+      <div class="book-card reveal">
+        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781585424337-M.jpg" alt="Think and Grow Rich cover">
         <div class="book-title">Think and Grow Rich</div>
         <div class="book-author">Napoleon Hill</div>
         <div style="font-size:0.75rem; color:var(--accent); margin-top:6px; font-weight:600;">&#9733; Must Read</div>
       </div>
       <div class="book-card reveal">
-        <div class="book-spine">&#128218;</div>
+        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781590302255-M.jpg" alt="The Art of War cover">
         <div class="book-title">The Art of War</div>
         <div class="book-author">Sun Tzu</div>
       </div>
       <div class="book-card reveal">
-        <div class="book-spine">&#128272;</div>
+        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781491962190-M.jpg" alt="Zero Trust Networks cover">
         <div class="book-title">Zero Trust Networks</div>
         <div class="book-author">Gilman &amp; Barth</div>
       </div>
       <div class="book-card reveal">
-        <div class="book-spine">&#128187;</div>
+        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781942788294-M.jpg" alt="The Phoenix Project cover">
         <div class="book-title">The Phoenix Project</div>
         <div class="book-author">Kim, Behr &amp; Spafford</div>
       </div>
       <div class="book-card reveal">
-        <div class="book-spine">&#128161;</div>
+        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781982137274-M.jpg" alt="The 7 Habits of Highly Effective People cover">
         <div class="book-title">The 7 Habits of Highly Effective People</div>
         <div class="book-author">Stephen Covey</div>
       </div>
       <div class="book-card reveal">
-        <div class="book-spine">&#128640;</div>
+        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781591846444-M.jpg" alt="Start with Why cover">
         <div class="book-title">Start with Why</div>
         <div class="book-author">Simon Sinek</div>
       </div>
       <div class="book-card reveal">
-        <div class="book-spine">&#128293;</div>
+        <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781476714202-M.jpg" alt="Relentless cover">
         <div class="book-title">Relentless</div>
         <div class="book-author">Tim S. Grover</div>
       </div>
@@ -2188,14 +2181,14 @@ footer {
   <div class="fun-panel" id="panel-projects" data-tab-title="Personal Projects &amp; AI Creations">
     <div class="projects-grid">
       <div class="project-card reveal">
-        <div class="project-name">&#9917; Quest For The Quest</div>
+        <div class="project-name">&#9917; Quest For The Cup</div>
         <div class="project-desc">A soccer-themed game created for fun, blending a love of sports and technology into an interactive experience.</div>
         <div class="project-tags">
           <span class="project-tag">Game Dev</span>
           <span class="project-tag">Sports</span>
           <span class="project-tag">Interactive</span>
         </div>
-        <a href="https://scratch.mit.edu/projects/1015579498/embed" target="_blank" rel="noopener" class="project-link">View Project &rarr;</a>
+        <a href="https://scratch.mit.edu/projects/380987778" target="_blank" rel="noopener" class="project-link">View Project &rarr;</a>
       </div>
       <div class="project-card reveal">
         <div class="project-name">&#129302; The Evolution of Generative AI</div>
@@ -2436,24 +2429,6 @@ footer {
     <p class="section-subtitle">Let's connect and build something great</p>
   </div>
   <div class="contact-grid reveal">
-    <a href="mailto:neosaxena@gmail.com" class="contact-item">
-      <div class="contact-icon email">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      </div>
-      <div>
-        <div class="contact-label">Email</div>
-        <div class="contact-value">neosaxena@gmail.com</div>
-      </div>
-    </a>
-    <a href="tel:+15154212582" class="contact-item">
-      <div class="contact-icon phone">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      </div>
-      <div>
-        <div class="contact-label">Phone</div>
-        <div class="contact-value">515-421-2582</div>
-      </div>
-    </a>
     <a href="https://linkedin.com/in/neosaxena" target="_blank" rel="noopener" class="contact-item">
       <div class="contact-icon linkedin">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
