@@ -730,6 +730,8 @@ nav {
   border: 1px solid var(--border);
   color: var(--text-secondary);
   transition: all var(--transition);
+  cursor: pointer;
+  user-select: none;
 }
 
 .skill-tag:hover {
@@ -737,6 +739,62 @@ nav {
   color: var(--secondary);
   transform: translateY(-2px);
 }
+
+/* ===== SKILL MODAL ===== */
+.skill-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(3px);
+}
+.skill-modal-overlay.active {
+  display: flex;
+}
+.skill-modal {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 36px;
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  animation: skillModalIn 0.2s ease;
+}
+@keyframes skillModalIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.skill-modal-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--secondary);
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}
+.skill-modal-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+.skill-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  line-height: 1;
+  transition: color var(--transition);
+}
+.skill-modal-close:hover { color: var(--secondary); }
 
 /* ===== CERTIFICATIONS ===== */
 .cert-grid {
@@ -1914,69 +1972,69 @@ footer {
   <div class="reveal skills-other">
     <div class="skill-category-title">Cloud &amp; Identity</div>
     <div class="skill-tags">
-      <span class="skill-tag">OKTA</span>
-      <span class="skill-tag">Google Workspace</span>
-      <span class="skill-tag">Azure AD</span>
-      <span class="skill-tag">SSO / SAML</span>
+      <span class="skill-tag" data-desc="Identity and Access Management (IAM) platform used to manage SSO, MFA, and user lifecycle across all enterprise SaaS applications at H/L Agency.">OKTA</span>
+      <span class="skill-tag" data-desc="Cloud-based productivity and collaboration suite — administered the admin console, security settings, and integrations for 100+ users across the agency.">Google Workspace</span>
+      <span class="skill-tag" data-desc="Microsoft's cloud identity platform used for device conditional access, hybrid identity management, and integration with Jamf Pro and Microsoft Intune.">Azure AD</span>
+      <span class="skill-tag" data-desc="Single Sign-On and SAML federation used to connect Okta identity to Egnyte, RingCentral, Slack, and 10+ SaaS platforms — eliminating redundant credential management.">SSO / SAML</span>
     </div>
     <div class="skill-category-title">Endpoint Management</div>
     <div class="skill-tags">
-      <span class="skill-tag">JAMF Pro</span>
-      <span class="skill-tag">Microsoft Intune</span>
-      <span class="skill-tag">MDM</span>
-      <span class="skill-tag">BYOD</span>
+      <span class="skill-tag" data-desc="Apple MDM solution used to enforce device compliance, deploy configuration profiles, and manage BYOD and corporate macOS/iOS fleets across the organization.">JAMF Pro</span>
+      <span class="skill-tag" data-desc="Cloud-based MDM/MAM platform used to manage Windows and mobile endpoints, enforce conditional access policies, and deploy security configurations.">Microsoft Intune</span>
+      <span class="skill-tag" data-desc="Mobile Device Management — hands-on experience managing corporate and BYOD device fleets across macOS, iOS, Windows, and ChromeOS at scale.">MDM</span>
+      <span class="skill-tag" data-desc="Bring Your Own Device — designed and enforced BYOD security policies governing personal devices accessing corporate resources, balancing usability with data protection.">BYOD</span>
     </div>
     <div class="skill-category-title">Networking</div>
     <div class="skill-tags">
-      <span class="skill-tag">TCP/IP</span>
-      <span class="skill-tag">DNS</span>
-      <span class="skill-tag">DHCP</span>
-      <span class="skill-tag">VPN</span>
-      <span class="skill-tag">Firewall Management</span>
-      <span class="skill-tag">Cisco Meraki</span>
+      <span class="skill-tag" data-desc="Core networking protocol stack — applied in configuring, troubleshooting, and securing enterprise LAN/WAN environments and remote access infrastructure.">TCP/IP</span>
+      <span class="skill-tag" data-desc="Managed internal and external DNS records for enterprise infrastructure, SaaS integrations, and custom domain routing across multi-site environments.">DNS</span>
+      <span class="skill-tag" data-desc="Configured and maintained DHCP services across enterprise networks, including scope management, IP reservations, and failover configurations.">DHCP</span>
+      <span class="skill-tag" data-desc="Deployed and maintained VPN infrastructure for secure remote access — including a dedicated high-bandwidth video editing server with VPN capabilities for distributed creative teams.">VPN</span>
+      <span class="skill-tag" data-desc="Configured and maintained firewall rules, NAT policies, and network segmentation to enforce perimeter security and control east-west traffic.">Firewall Management</span>
+      <span class="skill-tag" data-desc="Cloud-managed networking platform used to manage switches, wireless access points, and security appliances across office environments with centralized visibility.">Cisco Meraki</span>
     </div>
     <div class="skill-category-title">Systems &amp; Virtualization</div>
     <div class="skill-tags">
-      <span class="skill-tag">VMware</span>
-      <span class="skill-tag">Windows OS</span>
-      <span class="skill-tag">Windows Server</span>
-      <span class="skill-tag">Active Directory</span>
-      <span class="skill-tag">Group Policy</span>
-      <span class="skill-tag">macOS</span>
-      <span class="skill-tag">Chromebooks</span>
+      <span class="skill-tag" data-desc="Used for server and workstation virtualization — including deploying and maintaining a dedicated media server environment for remote creative workflows.">VMware</span>
+      <span class="skill-tag" data-desc="Extensive enterprise experience managing, hardening, imaging, and supporting Windows 10/11 environments — served as the sole Windows systems technician at H/L Agency.">Windows OS</span>
+      <span class="skill-tag" data-desc="Administered Windows Server environments including Active Directory, DNS, DHCP, file services, and Group Policy across multi-site enterprise infrastructure.">Windows Server</span>
+      <span class="skill-tag" data-desc="Managed user accounts, OUs, security groups, and domain-level policies — governing identity and access across enterprise Windows environments.">Active Directory</span>
+      <span class="skill-tag" data-desc="Created and enforced Group Policy Objects (GPOs) to govern user access, software deployment, security baselines, and device compliance at scale.">Group Policy</span>
+      <span class="skill-tag" data-desc="Managed macOS endpoints at scale via Jamf Pro — including configuration profiles, patch management, app deployment, and OS lifecycle management.">macOS</span>
+      <span class="skill-tag" data-desc="Administered ChromeOS device fleets via Google Admin Console — managing enrollment policies, user provisioning, and app management across the organization.">Chromebooks</span>
     </div>
     <div class="skill-category-title">Security &amp; Compliance</div>
     <div class="skill-tags">
-      <span class="skill-tag">PCI DSS</span>
-      <span class="skill-tag">HIPAA</span>
-      <span class="skill-tag">SOC</span>
-      <span class="skill-tag">Vulnerability Assessment</span>
-      <span class="skill-tag">Ethical Hacking</span>
+      <span class="skill-tag" data-desc="Implemented controls and process documentation to meet Payment Card Industry Data Security Standard requirements, enforcing cardholder data protection across systems.">PCI DSS</span>
+      <span class="skill-tag" data-desc="Enforced HIPAA-compliant data handling, access controls, and audit logging to protect Protected Health Information (PHI) across the organization.">HIPAA</span>
+      <span class="skill-tag" data-desc="Implemented SOC audit recommendations to strengthen organizational security posture and align operational controls with industry-standard frameworks.">SOC</span>
+      <span class="skill-tag" data-desc="Conducted network and application vulnerability assessments to identify, prioritize, and remediate security risks across endpoints and SaaS platforms.">Vulnerability Assessment</span>
+      <span class="skill-tag" data-desc="EC-Council Certified Ethical Hacker (CEH) — trained in penetration testing methodologies, network exploitation techniques, and adversarial threat analysis.">Ethical Hacking</span>
     </div>
     <div class="skill-category-title">Tools &amp; Platforms</div>
     <div class="skill-tags">
-      <span class="skill-tag">RingCentral</span>
-      <span class="skill-tag">Slack</span>
-      <span class="skill-tag">Egnyte</span>
-      <span class="skill-tag">ASANA</span>
-      <span class="skill-tag">MS Office</span>
-      <span class="skill-tag">Adobe Creative Cloud</span>
-      <span class="skill-tag">Citrix</span>
-      <span class="skill-tag">Android / iOS</span>
-      <span class="skill-tag">Cursor</span>
-      <span class="skill-tag">AI Studio</span>
-      <span class="skill-tag">Antigravity</span>
+      <span class="skill-tag" data-desc="Administered cloud-based UCaaS platform for 100+ users — managing provisioning, SSO integration, telephony configurations, and call routing policies.">RingCentral</span>
+      <span class="skill-tag" data-desc="Managed enterprise Slack workspace including app integrations, channel governance, data retention policies, and SSO via Okta.">Slack</span>
+      <span class="skill-tag" data-desc="Administered cloud content management platform — managing SSO integration, permission governance, and secure external file collaboration for the agency.">Egnyte</span>
+      <span class="skill-tag" data-desc="Used for project and task management to coordinate IT initiatives, vendor projects, and cross-functional deliverables across the organization.">ASANA</span>
+      <span class="skill-tag" data-desc="Proficient across Microsoft 365 — including advanced Excel, SharePoint administration, Teams governance, and enterprise license management.">MS Office</span>
+      <span class="skill-tag" data-desc="Managed enterprise Creative Cloud licensing, app deployment, and updates in support of a 100+ person creative agency across macOS and Windows.">Adobe Creative Cloud</span>
+      <span class="skill-tag" data-desc="Administered virtual app and desktop delivery for remote workforce access to secure, centralized application environments.">Citrix</span>
+      <span class="skill-tag" data-desc="Managed Android and iOS device enrollment, MDM policies, app distribution, and security configurations across the corporate mobile fleet.">Android / iOS</span>
+      <span class="skill-tag" data-desc="AI-native code editor used for scripting, IT automation, and rapid development of internal tools — including this resume site.">Cursor</span>
+      <span class="skill-tag" data-desc="Used for workflow automation, prompt engineering, and building AI-assisted operational tools to streamline IT processes.">AI Studio</span>
+      <span class="skill-tag" data-desc="Project management and collaboration platform used to coordinate internal IT workflows and cross-functional delivery across teams.">Antigravity</span>
     </div>
     <div class="skill-category-title">Soft Skills</div>
     <div class="skill-tags">
-      <span class="skill-tag">Project Management</span>
-      <span class="skill-tag">Team Leadership</span>
-      <span class="skill-tag">Strategic Planning</span>
-      <span class="skill-tag">Budget Management</span>
-      <span class="skill-tag">Process Automation</span>
-      <span class="skill-tag">Cross-Department Coordination</span>
-      <span class="skill-tag">Innovation</span>
-      <span class="skill-tag">Time Management</span>
+      <span class="skill-tag" data-desc="Led end-to-end IT projects from scoping and vendor selection through deployment and post-launch support — consistently delivering on time and within budget.">Project Management</span>
+      <span class="skill-tag" data-desc="Managed and mentored operational staff, providing technical direction, escalation support, and cross-functional guidance across departments.">Team Leadership</span>
+      <span class="skill-tag" data-desc="Developed IT roadmaps and infrastructure strategies aligned with organizational goals — translating technical needs into executive-level decisions.">Strategic Planning</span>
+      <span class="skill-tag" data-desc="Owned IT operational budgets — managing vendor contracts, renewal cycles, cost optimization, and ROI justification for technology investments.">Budget Management</span>
+      <span class="skill-tag" data-desc="Designed automated workflows for ticketing, alerting, onboarding, and reporting — reducing manual effort and accelerating response times by up to 80%.">Process Automation</span>
+      <span class="skill-tag" data-desc="Served as the technical liaison between IT, finance, HR, and executive leadership — translating infrastructure decisions into business outcomes.">Cross-Department Coordination</span>
+      <span class="skill-tag" data-desc="Lead technical representative for the internal AI Thinktank — driving adoption of emerging technologies and building governance frameworks for responsible AI use.">Innovation</span>
+      <span class="skill-tag" data-desc="Consistently delivered IT projects across competing priorities in a fast-paced agency environment — recognized with Employee of the Year 2024.">Time Management</span>
     </div>
   </div>
 </section>
@@ -2649,7 +2707,50 @@ window.addEventListener('beforeprint', function() {
     card.classList.add('expanded');
   });
 });
+
+/* ===== SKILL TAG MODAL ===== */
+(function() {
+  var overlay = document.getElementById('skill-modal-overlay');
+  var modalTitle = document.getElementById('skill-modal-title');
+  var modalDesc = document.getElementById('skill-modal-desc');
+  var closeBtn = document.getElementById('skill-modal-close');
+
+  function openModal(name, desc) {
+    modalTitle.textContent = name;
+    modalDesc.textContent = desc;
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.skill-tag[data-desc]').forEach(function(tag) {
+    tag.addEventListener('click', function() {
+      openModal(tag.textContent.trim(), tag.getAttribute('data-desc'));
+    });
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+})();
 </script>
+
+<!-- ===== SKILL MODAL ===== -->
+<div class="skill-modal-overlay" id="skill-modal-overlay">
+  <div class="skill-modal" role="dialog" aria-modal="true">
+    <button class="skill-modal-close" id="skill-modal-close" aria-label="Close">&times;</button>
+    <div class="skill-modal-title" id="skill-modal-title"></div>
+    <div class="skill-modal-desc" id="skill-modal-desc"></div>
+  </div>
+</div>
 
 </body>
 </html>
