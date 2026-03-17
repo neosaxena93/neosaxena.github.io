@@ -2707,8 +2707,18 @@ window.addEventListener('beforeprint', function() {
     card.classList.add('expanded');
   });
 });
+</script>
 
-/* ===== SKILL TAG MODAL ===== */
+<!-- ===== SKILL MODAL ===== -->
+<div class="skill-modal-overlay" id="skill-modal-overlay">
+  <div class="skill-modal" role="dialog" aria-modal="true">
+    <button class="skill-modal-close" id="skill-modal-close" aria-label="Close">&times;</button>
+    <div class="skill-modal-title" id="skill-modal-title"></div>
+    <div class="skill-modal-desc" id="skill-modal-desc"></div>
+  </div>
+</div>
+
+<script>
 (function() {
   var overlay = document.getElementById('skill-modal-overlay');
   var modalTitle = document.getElementById('skill-modal-title');
@@ -2742,15 +2752,6 @@ window.addEventListener('beforeprint', function() {
   });
 })();
 </script>
-
-<!-- ===== SKILL MODAL ===== -->
-<div class="skill-modal-overlay" id="skill-modal-overlay">
-  <div class="skill-modal" role="dialog" aria-modal="true">
-    <button class="skill-modal-close" id="skill-modal-close" aria-label="Close">&times;</button>
-    <div class="skill-modal-title" id="skill-modal-title"></div>
-    <div class="skill-modal-desc" id="skill-modal-desc"></div>
-  </div>
-</div>
 
 </body>
 </html>
