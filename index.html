@@ -541,6 +541,21 @@ nav {
   padding-left: 60px;
 }
 
+.timeline-item.tl-left {
+  left: 0 !important;
+  text-align: right !important;
+  padding-right: 60px !important;
+  padding-left: 0 !important;
+}
+.timeline-item.tl-left .timeline-dot { right: -8px !important; left: auto !important; }
+.timeline-item.tl-right {
+  left: 50% !important;
+  text-align: left !important;
+  padding-left: 60px !important;
+  padding-right: 0 !important;
+}
+.timeline-item.tl-right .timeline-dot { left: -8px !important; right: auto !important; }
+
 .timeline-dot {
   position: absolute;
   width: 16px;
@@ -647,6 +662,87 @@ nav {
 }
 
 .timeline-card:hover .timeline-expand { color: var(--primary); }
+
+.timeline-item-grouped {
+  position: relative;
+  width: 100%;
+  padding: 0 0 60px;
+  left: 0;
+  text-align: left;
+}
+.timeline-item-grouped .timeline-dot {
+  left: 50%;
+  transform: translateX(-50%);
+  right: auto;
+}
+.timeline-grouped-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  max-width: 680px;
+  margin: 0 auto;
+  transition: box-shadow var(--transition);
+}
+.timeline-grouped-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.timeline-grouped-company {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--secondary);
+}
+.timeline-grouped-tenure {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.timeline-role-entry {
+  position: relative;
+  padding: 14px 0 14px 16px;
+  border-left: 2px solid var(--border);
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+.timeline-role-entry:last-child { margin-bottom: 0; }
+.timeline-role-entry:hover { border-left-color: var(--primary); }
+.timeline-role-entry-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+.promotion-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #fff;
+  background: var(--gradient);
+  border-radius: 20px;
+  padding: 2px 9px;
+  white-space: nowrap;
+}
+.timeline-role-entry .timeline-role { margin: 0; font-size: 1.05rem; }
+.timeline-role-entry .timeline-date { margin-bottom: 2px; }
+.timeline-role-entry .timeline-location { margin-bottom: 6px; }
+.timeline-role-entry .timeline-details { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
+.timeline-role-entry.expanded .timeline-details { max-height: 500px; }
+.timeline-role-entry .timeline-expand { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; transition: color var(--transition); }
+.timeline-role-entry:hover .timeline-expand { color: var(--primary); }
 
 /* ===== SKILLS ===== */
 .skills-grid {
@@ -1283,7 +1379,9 @@ footer {
 
   .timeline-item,
   .timeline-item:nth-child(odd),
-  .timeline-item:nth-child(even) {
+  .timeline-item:nth-child(even),
+  .timeline-item.tl-left,
+  .timeline-item.tl-right {
     width: 100%;
     left: 0;
     text-align: left;
@@ -1292,9 +1390,19 @@ footer {
   }
 
   .timeline-item:nth-child(odd) .timeline-dot,
-  .timeline-item:nth-child(even) .timeline-dot {
+  .timeline-item:nth-child(even) .timeline-dot,
+  .timeline-item.tl-left .timeline-dot,
+  .timeline-item.tl-right .timeline-dot {
     left: 12px;
     right: auto;
+  }
+
+  .timeline-item-grouped {
+    padding-left: 0;
+  }
+
+  .timeline-grouped-card {
+    margin-left: 0;
   }
 
   .skills-grid { grid-template-columns: 1fr; }
@@ -1481,13 +1589,63 @@ footer {
 
   .timeline-item,
   .timeline-item:nth-child(odd),
-  .timeline-item:nth-child(even) {
+  .timeline-item:nth-child(even),
+  .timeline-item.tl-left,
+  .timeline-item.tl-right {
     width: 100% !important;
     left: 0 !important;
     padding: 0 0 1px !important;
     text-align: left !important;
     break-inside: avoid;
   }
+
+  .timeline-item-grouped {
+    width: 100% !important;
+    left: 0 !important;
+    padding: 0 0 4px !important;
+    break-inside: avoid;
+  }
+
+  .timeline-grouped-card {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+
+  .timeline-grouped-header {
+    border-bottom: 1px solid #e0e0e0 !important;
+    padding-bottom: 2px !important;
+    margin-bottom: 2px !important;
+  }
+
+  .timeline-grouped-company {
+    font-size: 9.5pt !important;
+    color: #1a1a2e !important;
+    -webkit-text-fill-color: #1a1a2e !important;
+  }
+
+  .timeline-grouped-tenure {
+    font-size: 6.5pt !important;
+    color: #0066ff !important;
+    -webkit-text-fill-color: #0066ff !important;
+  }
+
+  .timeline-role-entry {
+    border-left: none !important;
+    padding: 2px 0 2px 0 !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+  }
+
+  .timeline-role-entry .timeline-details {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .promotion-badge { display: none !important; }
+  .timeline-expand { display: none !important; }
 
   .timeline-card {
     background: transparent !important;
@@ -1829,47 +1987,56 @@ footer {
   </div>
   <div class="timeline">
 
-    <div class="timeline-item reveal-left">
+    <div class="timeline-item-grouped reveal">
       <div class="timeline-dot"></div>
-      <div class="timeline-card" onclick="this.classList.toggle('expanded')">
-        <div class="timeline-date">Dec 2023 &mdash; Present</div>
-        <div class="timeline-role">Network &amp; IT Ops Admin</div>
-        <div class="timeline-company">H/L Agency</div>
-        <div class="timeline-location">Oakland, California</div>
-        <div class="timeline-details">
-          <ul>
-            <li>Own end-to-end IT governance and strategy for a 100+ person agency &mdash; managing Okta, Google Workspace, and Jamf Pro as the core cloud platform stack</li>
-            <li>Serve as lead technical representative for the internal AI Thinktank &mdash; governing AI tool adoption, implementing security-first usage policies, and mitigating prompt injection and data exposure risks</li>
-            <li>Drive cross-functional infrastructure decisions, managing vendor lifecycles and IT budgets to ensure on-time, on-scope project delivery</li>
-            <li>Enforce security posture across SaaS and endpoint layers &mdash; implementing SOC recommendations and maintaining compliance with PCI DSS and HIPAA frameworks</li>
-            <li><strong>&#9733; Employee of the Year 2024</strong></li>
-          </ul>
+      <div class="timeline-grouped-card">
+        <div class="timeline-grouped-header">
+          <div>
+            <div class="timeline-grouped-company">H/L Agency</div>
+            <div class="timeline-location" style="margin:2px 0 0;">Oakland, California</div>
+          </div>
+          <div class="timeline-grouped-tenure">Aug 2021 &mdash; Present</div>
         </div>
-        <div class="timeline-expand">&#9662; click to expand</div>
+
+        <div class="timeline-role-entry" onclick="this.classList.toggle('expanded')">
+          <div class="timeline-role-entry-header">
+            <div class="timeline-role">Network &amp; IT Ops Admin</div>
+            <span class="promotion-badge">&#8593; Promoted</span>
+          </div>
+          <div class="timeline-date">Dec 2023 &mdash; Present</div>
+          <div class="timeline-details">
+            <ul>
+              <li>Own end-to-end IT governance and strategy for a 100+ person agency &mdash; managing Okta, Google Workspace, and Jamf Pro as the core cloud platform stack</li>
+              <li>Serve as lead technical representative for the internal AI Thinktank &mdash; governing AI tool adoption, implementing security-first usage policies, and mitigating prompt injection and data exposure risks</li>
+              <li>Drive cross-functional infrastructure decisions, managing vendor lifecycles and IT budgets to ensure on-time, on-scope project delivery</li>
+              <li>Enforce security posture across SaaS and endpoint layers &mdash; implementing SOC recommendations and maintaining compliance with PCI DSS and HIPAA frameworks</li>
+              <li><strong>&#9733; Employee of the Year 2024</strong></li>
+            </ul>
+          </div>
+          <div class="timeline-expand">&#9662; click to expand</div>
+        </div>
+
+        <div class="timeline-role-entry" onclick="this.classList.toggle('expanded')">
+          <div class="timeline-role-entry-header">
+            <div class="timeline-role">Network &amp; Systems Administrator</div>
+          </div>
+          <div class="timeline-date">Aug 2021 &mdash; Dec 2023</div>
+          <div class="timeline-details">
+            <ul>
+              <li>Administered Identity and Access Management (IAM) via Okta and Google Workspace &mdash; deploying SSO and identity governance across Egnyte, RingCentral, Slack, and 10+ SaaS apps</li>
+              <li>Enforced Mobile Device Management (MDM) and BYOD security policies through Jamf Pro and Microsoft Azure AD with strict configuration profiles</li>
+              <li>Reduced solution implementation time by 80% through ITSM-aligned documentation, automated ticketing, and self-service workflows</li>
+              <li>Served as sole Windows systems technician and designated cybersecurity consultant &mdash; managing vendor security assessments, access controls, and tier-escalation incident response</li>
+              <li>Deployed and maintained a virtualized media server with secure VPN remote access for distributed creative teams</li>
+            </ul>
+          </div>
+          <div class="timeline-expand">&#9662; click to expand</div>
+        </div>
+
       </div>
     </div>
 
-    <div class="timeline-item reveal-right">
-      <div class="timeline-dot"></div>
-      <div class="timeline-card" onclick="this.classList.toggle('expanded')">
-        <div class="timeline-date">Aug 2021 &mdash; Dec 2023</div>
-        <div class="timeline-role">Network &amp; Systems Administrator</div>
-        <div class="timeline-company">H/L Agency</div>
-        <div class="timeline-location">Oakland, California</div>
-        <div class="timeline-details">
-          <ul>
-            <li>Administered Identity and Access Management (IAM) via Okta and Google Workspace &mdash; deploying SSO and identity governance across Egnyte, RingCentral, Slack, and 10+ SaaS apps</li>
-            <li>Enforced Mobile Device Management (MDM) and BYOD security policies through Jamf Pro and Microsoft Azure AD with strict configuration profiles</li>
-            <li>Reduced solution implementation time by 80% through ITSM-aligned documentation, automated ticketing, and self-service workflows</li>
-            <li>Served as sole Windows systems technician and designated cybersecurity consultant &mdash; managing vendor security assessments, access controls, and tier-escalation incident response</li>
-            <li>Deployed and maintained a virtualized media server with secure VPN remote access for distributed creative teams</li>
-          </ul>
-        </div>
-        <div class="timeline-expand">&#9662; click to expand</div>
-      </div>
-    </div>
-
-    <div class="timeline-item reveal-left">
+    <div class="timeline-item tl-left reveal-left">
       <div class="timeline-dot"></div>
       <div class="timeline-card" onclick="this.classList.toggle('expanded')">
         <div class="timeline-date">Sep 2020 &mdash; Jun 2021</div>
@@ -1888,7 +2055,7 @@ footer {
       </div>
     </div>
 
-    <div class="timeline-item reveal-right">
+    <div class="timeline-item tl-right reveal-right">
       <div class="timeline-dot"></div>
       <div class="timeline-card" onclick="this.classList.toggle('expanded')">
         <div class="timeline-date">Jun 2019 &mdash; Aug 2020</div>
@@ -1908,7 +2075,7 @@ footer {
       </div>
     </div>
 
-    <div class="timeline-item reveal-left">
+    <div class="timeline-item tl-left reveal-left">
       <div class="timeline-dot"></div>
       <div class="timeline-card" onclick="this.classList.toggle('expanded')">
         <div class="timeline-date">Feb 2018 &mdash; Jun 2019</div>
