@@ -759,22 +759,26 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform var(--transition), box-shadow var(--transition);
+  transition: transform var(--transition);
 }
 
 .education-card:hover .education-mascot {
   transform: scale(1.08) rotate(-3deg);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
 }
 
 .education-mascot.wgu {
-  background: linear-gradient(135deg, #003057 0%, #004d8f 100%);
+  background: transparent;
 }
 
 .education-mascot.ku {
-  background: linear-gradient(135deg, #0051ba 0%, #e8000d 100%);
+  background: transparent;
+}
+
+.education-mascot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
 }
 
 .education-content {
@@ -813,6 +817,88 @@ nav {
 
 .timeline-card.edu-card .timeline-location {
   margin-bottom: 0;
+}
+
+.timeline-card.edu-card {
+  cursor: pointer;
+}
+
+.timeline-card.edu-card .timeline-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  margin-top: 0;
+}
+
+.timeline-card.edu-card.expanded .timeline-details {
+  max-height: 600px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.education-description {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.education-skills-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.education-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.education-skill-tag {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  transition: all var(--transition);
+}
+
+.education-skill-tag:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.education-certs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.education-cert-badge {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: #fff;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.timeline-card.edu-card .timeline-expand {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.timeline-card.edu-card.expanded .timeline-expand {
+  margin-top: 12px;
 }
 
 @media (max-width: 480px) {
@@ -2192,23 +2278,11 @@ footer {
   <div class="timeline">
     <div class="timeline-item reveal-left">
       <div class="timeline-dot"></div>
-      <div class="timeline-card edu-card">
+      <div class="timeline-card edu-card" onclick="this.classList.toggle('expanded')">
         <div class="timeline-date">2022</div>
         <div class="education-card">
           <div class="education-mascot wgu">
-            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
-              <ellipse cx="32" cy="36" rx="22" ry="20" fill="#fff"/>
-              <ellipse cx="22" cy="32" rx="10" ry="11" fill="#FFD54F"/>
-              <ellipse cx="42" cy="32" rx="10" ry="11" fill="#FFD54F"/>
-              <circle cx="22" cy="32" r="5" fill="#1a1a1a"/>
-              <circle cx="42" cy="32" r="5" fill="#1a1a1a"/>
-              <circle cx="23" cy="31" r="1.5" fill="#fff"/>
-              <circle cx="43" cy="31" r="1.5" fill="#fff"/>
-              <path d="M28 42 L32 48 L36 42" fill="#FF9800" stroke="#E65100" stroke-width="1"/>
-              <path d="M14 20 Q20 12 32 18 Q44 12 50 20 Q44 16 32 22 Q20 16 14 20" fill="#5D4037"/>
-              <path d="M10 28 Q6 22 12 18" stroke="#5D4037" stroke-width="3" stroke-linecap="round" fill="none"/>
-              <path d="M54 28 Q58 22 52 18" stroke="#5D4037" stroke-width="3" stroke-linecap="round" fill="none"/>
-            </svg>
+            <img src="assets/wgu-mascot.png" alt="WGU Owl Mascot" width="64" height="64">
           </div>
           <div class="education-content">
             <div class="education-degree">Master of Science in Cybersecurity &amp; Information Assurance</div>
@@ -2216,29 +2290,35 @@ footer {
             <div class="timeline-location">Online</div>
           </div>
         </div>
+        <div class="timeline-details">
+          <p class="education-description">
+            NSA-designated Center of Academic Excellence program focused on developing expertise to prevent, detect, and counter cyberattacks. Curriculum aligned with NICE Framework, CISSP Common Body of Knowledge, and industry best practices.
+          </p>
+          <div class="education-skills-title">Skills Acquired</div>
+          <div class="education-skills">
+            <span class="education-skill-tag">Cybersecurity Strategy</span>
+            <span class="education-skill-tag">Governance, Risk &amp; Compliance</span>
+            <span class="education-skill-tag">Penetration Testing</span>
+            <span class="education-skill-tag">Vulnerability Assessment</span>
+            <span class="education-skill-tag">Digital Forensics</span>
+            <span class="education-skill-tag">Incident Response</span>
+            <span class="education-skill-tag">Cloud Security</span>
+            <span class="education-skill-tag">Network Defense</span>
+            <span class="education-skill-tag">Secure Architecture Design</span>
+            <span class="education-skill-tag">Business Continuity</span>
+            <span class="education-skill-tag">Disaster Recovery</span>
+          </div>
+        </div>
+        <div class="timeline-expand">&#9662; click to expand</div>
       </div>
     </div>
     <div class="timeline-item reveal-right">
       <div class="timeline-dot"></div>
-      <div class="timeline-card edu-card">
+      <div class="timeline-card edu-card" onclick="this.classList.toggle('expanded')">
         <div class="timeline-date">2012 &mdash; 2016</div>
         <div class="education-card">
           <div class="education-mascot ku">
-            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
-              <ellipse cx="32" cy="38" rx="18" ry="16" fill="#0051BA"/>
-              <ellipse cx="32" cy="36" rx="14" ry="12" fill="#fff"/>
-              <circle cx="26" cy="34" r="4" fill="#1a1a1a"/>
-              <circle cx="38" cy="34" r="4" fill="#1a1a1a"/>
-              <circle cx="27" cy="33" r="1.2" fill="#fff"/>
-              <circle cx="39" cy="33" r="1.2" fill="#fff"/>
-              <path d="M26 44 L32 52 L38 44" fill="#FFD54F" stroke="#E65100" stroke-width="1"/>
-              <path d="M32 10 L30 20 L34 20 Z" fill="#E8000D"/>
-              <path d="M28 12 L24 20 L30 18 Z" fill="#E8000D"/>
-              <path d="M36 12 L40 20 L34 18 Z" fill="#E8000D"/>
-              <path d="M32 8 L28 16 L32 14 L36 16 Z" fill="#E8000D"/>
-              <path d="M18 38 Q8 44 6 54" stroke="#0051BA" stroke-width="4" stroke-linecap="round" fill="none"/>
-              <path d="M46 38 Q56 44 58 54" stroke="#0051BA" stroke-width="4" stroke-linecap="round" fill="none"/>
-            </svg>
+            <img src="assets/ku-jayhawk.png" alt="Kansas Jayhawk Mascot" width="64" height="64">
           </div>
           <div class="education-content">
             <div class="education-degree">Bachelor of Science in Sports Management</div>
@@ -2247,6 +2327,32 @@ footer {
             <div class="timeline-location">Lawrence, Kansas</div>
           </div>
         </div>
+        <div class="timeline-details">
+          <p class="education-description">
+            NASSM-aligned program combining sport business theory with hands-on experience through internship requirements. Developed expertise in the business side of athletics with a foundation in core business principles.
+          </p>
+          <div class="education-skills-title">Skills Acquired</div>
+          <div class="education-skills">
+            <span class="education-skill-tag">Event &amp; Facility Management</span>
+            <span class="education-skill-tag">Sports Marketing</span>
+            <span class="education-skill-tag">Sponsorship Strategy</span>
+            <span class="education-skill-tag">Financial Planning</span>
+            <span class="education-skill-tag">Budgeting</span>
+            <span class="education-skill-tag">Team Leadership</span>
+            <span class="education-skill-tag">Personnel Management</span>
+            <span class="education-skill-tag">Strategic Communication</span>
+            <span class="education-skill-tag">Problem Solving</span>
+          </div>
+          <div class="education-skills-title">Business Minor Focus</div>
+          <div class="education-skills">
+            <span class="education-skill-tag">Accounting Fundamentals</span>
+            <span class="education-skill-tag">Finance Principles</span>
+            <span class="education-skill-tag">Marketing Strategy</span>
+            <span class="education-skill-tag">Management &amp; Leadership</span>
+            <span class="education-skill-tag">Business Analytics</span>
+          </div>
+        </div>
+        <div class="timeline-expand">&#9662; click to expand</div>
       </div>
     </div>
   </div>
