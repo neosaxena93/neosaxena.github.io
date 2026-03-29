@@ -161,11 +161,14 @@ nav {
 }
 
 .nav-logo {
-  font-weight: 800;
-  font-size: 1.3rem;
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
   background-clip: text;
 }
 
@@ -2140,7 +2143,7 @@ footer {
 <!-- ===== NAVIGATION ===== -->
 <nav>
   <div class="nav-inner">
-    <div class="nav-logo">NS</div>
+    <div class="nav-logo"><img src="assets/ketsui-logo.png" alt="Ketsui Logo"></div>
 
     <button class="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
       <span></span><span></span><span></span>
