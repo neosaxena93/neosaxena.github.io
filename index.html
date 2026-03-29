@@ -166,22 +166,16 @@ nav {
 }
 
 .nav-logo img {
-  height: 44px;
+  height: 40px;
   width: auto;
   object-fit: contain;
-  filter: brightness(0) invert(1);
-  opacity: 0.95;
-  transition: opacity var(--transition), transform var(--transition);
+  border-radius: 6px;
+  transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .nav-logo img:hover {
-  opacity: 1;
   transform: scale(1.05);
-}
-
-[data-theme="light"] .nav-logo img {
-  filter: none;
-  opacity: 1;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
 }
 
 .nav-links {
