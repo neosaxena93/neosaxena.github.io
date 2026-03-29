@@ -479,31 +479,118 @@ nav {
   text-align: left;
 }
 
-.about-stats {
+/* ===== AWARD SHOWCASE ===== */
+.award-showcase {
   display: flex;
-  gap: 32px;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
+  padding: 32px 40px;
+  background: linear-gradient(135deg, rgba(255,215,0,0.08) 0%, rgba(255,180,0,0.04) 100%);
+  border: 2px solid rgba(255,215,0,0.3);
+  border-radius: 16px;
+  position: relative;
+  max-width: 480px;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
-.stat-item {
+.award-showcase::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(255,215,0,0.1) 0%, transparent 50%);
+  animation: awardGlow 4s ease-in-out infinite;
+}
+
+@keyframes awardGlow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+.award-badge {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 
-.stat-number {
-  font-size: 2.2rem;
+.award-ribbon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.award-star {
+  font-size: 1.8rem;
+  color: #ffd700;
+  filter: drop-shadow(0 0 8px rgba(255,215,0,0.6));
+  animation: starPulse 2s ease-in-out infinite;
+}
+
+@keyframes starPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(255,215,0,0.6)); }
+  50% { transform: scale(1.1); filter: drop-shadow(0 0 12px rgba(255,215,0,0.9)); }
+}
+
+.award-title {
+  font-size: 1.6rem;
   font-weight: 800;
-  background: var(--gradient);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffb300 50%, #ffd700 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-shadow: none;
 }
 
-.stat-label {
-  font-size: 0.8rem;
+.award-year {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #ffd700;
+  margin: 8px 0;
+  text-shadow: 0 0 20px rgba(255,215,0,0.5);
+}
+
+.award-company {
+  font-size: 1rem;
   color: var(--text-muted);
+  letter-spacing: 2px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,215,0,0.3);
+  margin-top: 4px;
+}
+
+.award-seal {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #ffd700 0%, #ff9500 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 15px rgba(255,215,0,0.4);
+  z-index: 2;
+}
+
+.award-seal::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 2px dashed rgba(255,255,255,0.4);
+  border-radius: 50%;
 }
 
 /* ===== TIMELINE (Experience & Education) ===== */
@@ -694,6 +781,42 @@ nav {
   padding-bottom: 14px;
   border-bottom: 1px solid var(--border);
 }
+
+.company-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: contain;
+  flex-shrink: 0;
+  transition: transform var(--transition);
+}
+
+.company-logo:hover {
+  transform: scale(1.1);
+}
+
+.company-logo.logo-dark-bg {
+  background: #1a1a1a;
+  padding: 6px;
+}
+
+.timeline-grouped-header-content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.experience-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.experience-card-info {
+  flex: 1;
+}
+
 .timeline-grouped-company {
   font-size: 1.15rem;
   font-weight: 700;
@@ -1580,7 +1703,9 @@ footer {
 
   .cert-grid { grid-template-columns: 1fr; }
 
-  .about-stats { gap: 20px; }
+  .award-showcase { padding: 24px 20px; max-width: 100%; }
+  .award-title { font-size: 1.2rem; letter-spacing: 2px; }
+  .award-year { font-size: 2rem; }
 
   .contact-grid { flex-direction: column; align-items: center; }
 }
@@ -1728,25 +1853,41 @@ footer {
     line-height: 1.35 !important;
   }
 
-  .about-stats {
-    gap: 20px !important;
-    justify-content: flex-start !important;
-    margin-bottom: 0 !important;
-  }
-
-  .stat-number {
-    font-size: 1.1rem !important;
+  .award-showcase {
+    padding: 12px 16px !important;
     background: none !important;
-    -webkit-text-fill-color: #0066ff !important;
-    color: #0066ff !important;
-    font-weight: 800 !important;
+    border: 2px solid #d4af37 !important;
+    max-width: 300px !important;
   }
 
-  .stat-label {
-    font-size: 5.5pt !important;
+  .award-showcase::before,
+  .award-seal {
+    display: none !important;
+  }
+
+  .award-title {
+    font-size: 10pt !important;
+    background: none !important;
+    -webkit-text-fill-color: #d4af37 !important;
+    color: #d4af37 !important;
+  }
+
+  .award-year {
+    font-size: 14pt !important;
+    color: #333 !important;
+    text-shadow: none !important;
+  }
+
+  .award-company {
+    font-size: 8pt !important;
     color: #555 !important;
     -webkit-text-fill-color: #555 !important;
-    letter-spacing: 0.5px !important;
+  }
+
+  .award-star {
+    color: #d4af37 !important;
+    filter: none !important;
+    animation: none !important;
   }
 
   /* ----- Timeline (Experience & Education) ----- */
@@ -2129,22 +2270,16 @@ footer {
     <div class="about-ketsui" style="border-left-color: var(--secondary); background: rgba(255,0,110,0.05);">
       <em>&ldquo;Do not pray for an easy life, pray for the strength to endure a difficult one.&rdquo;</em> &mdash; <strong>Bruce Lee</strong>
     </div>
-    <div class="about-stats">
-      <div class="stat-item">
-        <div class="stat-number">8+</div>
-        <div class="stat-label">Years Experience</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">8</div>
-        <div class="stat-label">Certifications</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">80%</div>
-        <div class="stat-label">Faster Resolution</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">2</div>
-        <div class="stat-label">Degrees</div>
+    <div class="award-showcase">
+      <div class="award-seal">🏆</div>
+      <div class="award-badge">
+        <div class="award-ribbon">
+          <span class="award-star">★</span>
+          <span class="award-title">Employee of the Year</span>
+          <span class="award-star">★</span>
+        </div>
+        <div class="award-year">2024</div>
+        <div class="award-company">H/L Agency</div>
       </div>
     </div>
   </div>
@@ -2162,9 +2297,12 @@ footer {
       <div class="timeline-dot"></div>
       <div class="timeline-grouped-card">
         <div class="timeline-grouped-header">
-          <div>
-            <div class="timeline-grouped-company">H/L Agency</div>
-            <div class="timeline-location" style="margin:2px 0 0;">Oakland, California</div>
+          <div class="timeline-grouped-header-content">
+            <img src="assets/hl-agency-logo.png" alt="H/L Agency Logo" class="company-logo">
+            <div>
+              <div class="timeline-grouped-company">H/L Agency</div>
+              <div class="timeline-location" style="margin:2px 0 0;">Oakland, California</div>
+            </div>
           </div>
           <div class="timeline-grouped-tenure">Aug 2021 &mdash; Present</div>
         </div>
@@ -2211,9 +2349,14 @@ footer {
       <div class="timeline-dot"></div>
       <div class="timeline-card" onclick="this.classList.toggle('expanded')">
         <div class="timeline-date">Sep 2020 &mdash; Jun 2021</div>
-        <div class="timeline-role">System Administrator</div>
-        <div class="timeline-company">Challenger Sports</div>
-        <div class="timeline-location">Lenexa, Kansas</div>
+        <div class="experience-card-header">
+          <img src="assets/challenger-sports-logo.png" alt="Challenger Sports Logo" class="company-logo logo-dark-bg">
+          <div class="experience-card-info">
+            <div class="timeline-role">System Administrator</div>
+            <div class="timeline-company">Challenger Sports</div>
+            <div class="timeline-location">Lenexa, Kansas</div>
+          </div>
+        </div>
         <div class="timeline-details">
           <ul>
             <li>Provisioned and maintained multi-OS enterprise environments (macOS, Windows 10, ChromeOS) &mdash; administering Windows Server, Active Directory, and Group Policy Objects (GPOs) for user access and device compliance</li>
@@ -2230,9 +2373,14 @@ footer {
       <div class="timeline-dot"></div>
       <div class="timeline-card" onclick="this.classList.toggle('expanded')">
         <div class="timeline-date">Jun 2019 &mdash; Aug 2020</div>
-        <div class="timeline-role">Manager of Ticket Operations</div>
-        <div class="timeline-company">Sporting Kansas City</div>
-        <div class="timeline-location">Kansas City, Kansas</div>
+        <div class="experience-card-header">
+          <img src="assets/sporting-kc-logo.png" alt="Sporting Kansas City Logo" class="company-logo">
+          <div class="experience-card-info">
+            <div class="timeline-role">Manager of Ticket Operations</div>
+            <div class="timeline-company">Sporting Kansas City</div>
+            <div class="timeline-location">Kansas City, Kansas</div>
+          </div>
+        </div>
         <div class="timeline-details">
           <ul>
             <li>Provided technical operations support for 14-16 person Sales &amp; Service teams across cloud and on-site platforms</li>
@@ -2250,9 +2398,14 @@ footer {
       <div class="timeline-dot"></div>
       <div class="timeline-card" onclick="this.classList.toggle('expanded')">
         <div class="timeline-date">Feb 2018 &mdash; Jun 2019</div>
-        <div class="timeline-role">Junior System Admin &amp; Ops Assistant</div>
-        <div class="timeline-company">Challenger Sports</div>
-        <div class="timeline-location">Lenexa, Kansas</div>
+        <div class="experience-card-header">
+          <img src="assets/challenger-sports-logo.png" alt="Challenger Sports Logo" class="company-logo logo-dark-bg">
+          <div class="experience-card-info">
+            <div class="timeline-role">Junior System Admin &amp; Ops Assistant</div>
+            <div class="timeline-company">Challenger Sports</div>
+            <div class="timeline-location">Lenexa, Kansas</div>
+          </div>
+        </div>
         <div class="timeline-details">
           <ul>
             <li>Deployed Google Classroom as a cloud-based onboarding platform with structured course material and assessments</li>
