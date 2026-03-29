@@ -479,118 +479,65 @@ nav {
   text-align: left;
 }
 
-/* ===== AWARD SHOWCASE ===== */
-.award-showcase {
+/* ===== AWARD BANNER ===== */
+.award-banner {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 32px 40px;
-  background: linear-gradient(135deg, rgba(255,215,0,0.08) 0%, rgba(255,180,0,0.04) 100%);
-  border: 2px solid rgba(255,215,0,0.3);
-  border-radius: 16px;
-  position: relative;
-  max-width: 480px;
-  margin: 0 auto;
-  overflow: hidden;
+  gap: 16px;
+  padding: 20px 0;
+  margin-top: 8px;
 }
 
-.award-showcase::before {
+.award-banner::before,
+.award-banner::after {
   content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at center, rgba(255,215,0,0.1) 0%, transparent 50%);
-  animation: awardGlow 4s ease-in-out infinite;
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,215,0,0.5), transparent);
+  max-width: 120px;
 }
 
-@keyframes awardGlow {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.1); }
-}
-
-.award-badge {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.award-ribbon {
+.award-content {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
+  gap: 14px;
 }
 
-.award-star {
-  font-size: 1.8rem;
-  color: #ffd700;
+.award-icon {
+  font-size: 1.5rem;
   filter: drop-shadow(0 0 8px rgba(255,215,0,0.6));
-  animation: starPulse 2s ease-in-out infinite;
 }
 
-@keyframes starPulse {
-  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(255,215,0,0.6)); }
-  50% { transform: scale(1.1); filter: drop-shadow(0 0 12px rgba(255,215,0,0.9)); }
+.award-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
 }
 
-.award-title {
-  font-size: 1.6rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  background: linear-gradient(135deg, #ffd700 0%, #ffb300 50%, #ffd700 100%);
+.award-label {
+  color: var(--text-muted);
+}
+
+.award-highlight {
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffd700 0%, #e6a800 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: none;
 }
 
-.award-year {
-  font-size: 2.4rem;
-  font-weight: 900;
-  color: #ffd700;
-  margin: 8px 0;
-  text-shadow: 0 0 20px rgba(255,215,0,0.5);
+.award-divider {
+  color: var(--border);
+  font-weight: 300;
 }
 
-.award-company {
-  font-size: 1rem;
-  color: var(--text-muted);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding-top: 8px;
-  border-top: 1px solid rgba(255,215,0,0.3);
-  margin-top: 4px;
-}
-
-.award-seal {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, #ffd700 0%, #ff9500 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  box-shadow: 0 4px 15px rgba(255,215,0,0.4);
-  z-index: 2;
-}
-
-.award-seal::before {
-  content: '';
-  position: absolute;
-  inset: 3px;
-  border: 2px dashed rgba(255,255,255,0.4);
-  border-radius: 50%;
+.award-company-name {
+  color: var(--text);
+  font-weight: 600;
 }
 
 /* ===== TIMELINE (Experience & Education) ===== */
@@ -795,9 +742,10 @@ nav {
   transform: scale(1.1);
 }
 
-.company-logo.logo-dark-bg {
-  background: #1a1a1a;
-  padding: 6px;
+.company-logo.logo-wide {
+  width: 80px;
+  height: 40px;
+  border-radius: 6px;
 }
 
 .timeline-grouped-header-content {
@@ -1703,9 +1651,8 @@ footer {
 
   .cert-grid { grid-template-columns: 1fr; }
 
-  .award-showcase { padding: 24px 20px; max-width: 100%; }
-  .award-title { font-size: 1.2rem; letter-spacing: 2px; }
-  .award-year { font-size: 2rem; }
+  .award-banner { padding: 16px 0; }
+  .award-text { font-size: 0.85rem; flex-wrap: wrap; justify-content: center; }
 
   .contact-grid { flex-direction: column; align-items: center; }
 }
@@ -1853,41 +1800,33 @@ footer {
     line-height: 1.35 !important;
   }
 
-  .award-showcase {
-    padding: 12px 16px !important;
-    background: none !important;
-    border: 2px solid #d4af37 !important;
-    max-width: 300px !important;
+  .award-banner {
+    padding: 8px 0 !important;
   }
 
-  .award-showcase::before,
-  .award-seal {
+  .award-banner::before,
+  .award-banner::after {
     display: none !important;
   }
 
-  .award-title {
-    font-size: 10pt !important;
-    background: none !important;
-    -webkit-text-fill-color: #d4af37 !important;
-    color: #d4af37 !important;
-  }
-
-  .award-year {
-    font-size: 14pt !important;
-    color: #333 !important;
-    text-shadow: none !important;
-  }
-
-  .award-company {
-    font-size: 8pt !important;
-    color: #555 !important;
-    -webkit-text-fill-color: #555 !important;
-  }
-
-  .award-star {
-    color: #d4af37 !important;
+  .award-icon {
+    font-size: 1rem !important;
     filter: none !important;
-    animation: none !important;
+  }
+
+  .award-text {
+    font-size: 9pt !important;
+  }
+
+  .award-highlight {
+    color: #d4af37 !important;
+    -webkit-text-fill-color: #d4af37 !important;
+    background: none !important;
+  }
+
+  .award-company-name {
+    color: #333 !important;
+    -webkit-text-fill-color: #333 !important;
   }
 
   /* ----- Timeline (Experience & Education) ----- */
@@ -2270,16 +2209,14 @@ footer {
     <div class="about-ketsui" style="border-left-color: var(--secondary); background: rgba(255,0,110,0.05);">
       <em>&ldquo;Do not pray for an easy life, pray for the strength to endure a difficult one.&rdquo;</em> &mdash; <strong>Bruce Lee</strong>
     </div>
-    <div class="award-showcase">
-      <div class="award-seal">🏆</div>
-      <div class="award-badge">
-        <div class="award-ribbon">
-          <span class="award-star">★</span>
-          <span class="award-title">Employee of the Year</span>
-          <span class="award-star">★</span>
+    <div class="award-banner">
+      <div class="award-content">
+        <span class="award-icon">🏆</span>
+        <div class="award-text">
+          <span class="award-highlight">Employee of the Year 2024</span>
+          <span class="award-divider">|</span>
+          <span class="award-company-name">H/L Agency</span>
         </div>
-        <div class="award-year">2024</div>
-        <div class="award-company">H/L Agency</div>
       </div>
     </div>
   </div>
@@ -2350,7 +2287,7 @@ footer {
       <div class="timeline-card" onclick="this.classList.toggle('expanded')">
         <div class="timeline-date">Sep 2020 &mdash; Jun 2021</div>
         <div class="experience-card-header">
-          <img src="assets/challenger-sports-logo.png" alt="Challenger Sports Logo" class="company-logo logo-dark-bg">
+          <img src="assets/challenger-sports-logo.png" alt="Challenger Sports Logo" class="company-logo logo-wide">
           <div class="experience-card-info">
             <div class="timeline-role">System Administrator</div>
             <div class="timeline-company">Challenger Sports</div>
@@ -2399,7 +2336,7 @@ footer {
       <div class="timeline-card" onclick="this.classList.toggle('expanded')">
         <div class="timeline-date">Feb 2018 &mdash; Jun 2019</div>
         <div class="experience-card-header">
-          <img src="assets/challenger-sports-logo.png" alt="Challenger Sports Logo" class="company-logo logo-dark-bg">
+          <img src="assets/challenger-sports-logo.png" alt="Challenger Sports Logo" class="company-logo logo-wide">
           <div class="experience-card-info">
             <div class="timeline-role">Junior System Admin &amp; Ops Assistant</div>
             <div class="timeline-company">Challenger Sports</div>
