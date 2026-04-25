@@ -1520,6 +1520,58 @@ nav {
   color: var(--text-muted);
 }
 
+/* ===== STRENGTHS ===== */
+.strengths-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.strength-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 28px 22px;
+  position: relative;
+  transition: all var(--transition);
+}
+
+.strength-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.strength-rank {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.strength-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.strength-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.strengths-footnote {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
 /* ===== CONTACT ===== */
 #contact { text-align: center; }
 
@@ -1666,6 +1718,8 @@ footer {
   .skills-grid { grid-template-columns: 1fr; }
 
   .cert-grid { grid-template-columns: 1fr; }
+
+  .strengths-grid { grid-template-columns: 1fr; }
 
   .award-banner { padding: 16px 0; }
   .award-text { font-size: 0.85rem; flex-wrap: wrap; justify-content: center; }
@@ -2163,6 +2217,7 @@ footer {
       <li><a href="#skills">Skills</a></li>
       <li><a href="#certifications">Certs</a></li>
       <li><a href="#funstuff">Fun Stuff</a></li>
+      <li><a href="#strengths">Strengths</a></li>
       <li><a href="#recommendations">Recs</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -2742,6 +2797,42 @@ footer {
     </div>
   </div>
 
+</section>
+
+<!-- ===== STRENGTHS ===== -->
+<section id="strengths">
+  <div class="reveal">
+    <h2 class="section-title">Strengths</h2>
+    <p class="section-subtitle">TOP 5 results from the HIGH5 Strengths Assessment</p>
+  </div>
+  <div class="strengths-grid">
+    <div class="strength-card reveal">
+      <div class="strength-rank">01</div>
+      <div class="strength-name">Deliverer</div>
+      <p class="strength-desc">Follows through on commitments and appreciates how this builds trust and respect. Feels strongly about keeping promises — both on the giving and receiving side.</p>
+    </div>
+    <div class="strength-card reveal">
+      <div class="strength-rank">02</div>
+      <div class="strength-name">Problem Solver</div>
+      <p class="strength-desc">Loves uncovering flaws, diagnosing problems, and coming up with solutions. Finds it difficult to leave unresolved issues and move on as if everything is fine.</p>
+    </div>
+    <div class="strength-card reveal">
+      <div class="strength-rank">03</div>
+      <div class="strength-name">Thinker</div>
+      <p class="strength-desc">Enjoys mental activity, intellectual discussions, and time alone in reflection. Finds it difficult to work in environments that tend to act before thinking.</p>
+    </div>
+    <div class="strength-card reveal">
+      <div class="strength-rank">04</div>
+      <div class="strength-name">Strategist</div>
+      <p class="strength-desc">Looks at the big picture, enabling an easy path through the clutter. Connecting the dots comes naturally — always finding the best route through complexity.</p>
+    </div>
+    <div class="strength-card reveal">
+      <div class="strength-rank">05</div>
+      <div class="strength-name">Philomath</div>
+      <p class="strength-desc">Loves learning. Explores many interests, follows new paths, and acquires as much knowledge as possible. Thrives on curiosity and the pursuit of new ideas.</p>
+    </div>
+  </div>
+  <p class="strengths-footnote">HIGH5 Strengths Certified &middot; Sep 2024 &middot; <a href="https://high5test.com" target="_blank" rel="noopener">high5test.com</a></p>
 </section>
 
 <!-- ===== RECOMMENDATIONS ===== -->
