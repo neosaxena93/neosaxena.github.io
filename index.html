@@ -9,7 +9,7 @@
 <meta name="GPTBot" content="noindex, nofollow">
 <meta name="anthropic-ai" content="noindex, nofollow">
 <meta name="PerplexityBot" content="noindex, nofollow">
-<title>Neo Saxena | Interactive Resume</title>
+<title>Neo (Nitin) Saxena | Interactive Resume</title>
 <style>
 /* ===== CSS CUSTOM PROPERTIES / THEMES ===== */
 :root {
@@ -662,6 +662,14 @@ nav {
   margin-bottom: 12px;
 }
 
+.timeline-note {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin: -6px 0 12px 0;
+  opacity: 0.85;
+}
+
 .timeline-details {
   max-height: 0;
   overflow: hidden;
@@ -859,6 +867,19 @@ nav {
 
 .education-mascot.ku {
   background: transparent;
+}
+
+.education-mascot.transition {
+  background: linear-gradient(135deg, rgba(131, 56, 236, 0.15), rgba(255, 0, 110, 0.12));
+  border: 1px solid rgba(131, 56, 236, 0.25);
+}
+
+.education-mascot.transition svg {
+  width: 36px;
+  height: 36px;
+  stroke: var(--primary);
+  fill: none;
+  stroke-width: 2;
 }
 
 .education-mascot img {
@@ -2012,6 +2033,14 @@ footer {
     margin-bottom: 1px !important;
   }
 
+  .timeline-note {
+    font-size: 6.5pt !important;
+    color: #555 !important;
+    -webkit-text-fill-color: #555 !important;
+    font-style: italic !important;
+    margin: 1px 0 2px 0 !important;
+  }
+
   .timeline-details {
     max-height: none !important;
     overflow: visible !important;
@@ -2238,7 +2267,7 @@ footer {
   <div class="hero-content">
     <div class="hero-badge">&#9733; Employee of the Year 2024 &mdash; H/L Agency</div>
     <h1 class="hero-name">
-      <span class="gradient-text">Neo Saxena</span>
+      <span class="gradient-text">Neo (Nitin) Saxena</span>
     </h1>
     <div class="hero-typing-wrapper">
       <span id="typed-text"></span><span class="cursor-blink"></span>
@@ -2268,7 +2297,7 @@ footer {
   <div class="about-content reveal">
     <div class="about-photo-wrapper">
       <div class="about-photo">
-        <img src="photo.png" alt="Neo Saxena">
+        <img src="photo.png" alt="Neo (Nitin) Saxena">
       </div>
     </div>
     <p class="about-text">
@@ -2387,6 +2416,7 @@ footer {
             <div class="timeline-role">Manager of Ticket Operations</div>
             <div class="timeline-company">Sporting Kansas City</div>
             <div class="timeline-location">Kansas City, Kansas</div>
+            <div class="timeline-note">Position eliminated due to COVID-19 pandemic restructuring</div>
           </div>
         </div>
         <div class="timeline-details">
@@ -2474,6 +2504,39 @@ footer {
       </div>
     </div>
     <div class="timeline-item reveal-right">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card edu-card" onclick="this.classList.toggle('expanded')">
+        <div class="timeline-date">2016 &mdash; 2018</div>
+        <div class="education-card">
+          <div class="education-mascot transition">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v6"/><path d="M12 22a10 10 0 1 0-7.07-17.07"/><circle cx="12" cy="12" r="3"/><path d="m15 9-3 3"/></svg>
+          </div>
+          <div class="education-content">
+            <div class="education-degree">Career Transition Period</div>
+            <div class="education-minor">Self-directed pivot from Sports Management into IT</div>
+            <div class="timeline-company">Independent Study &amp; Skill Building</div>
+            <div class="timeline-location">Kansas City, Kansas</div>
+          </div>
+        </div>
+        <div class="timeline-details">
+          <p class="education-description">
+            Following undergraduate graduation, undertook a deliberate career pivot from Sports Management into Information Technology. Completed self-directed study in networking, Windows systems administration, and helpdesk fundamentals to establish the technical foundation that led directly into the Junior System Admin &amp; Ops Assistant role at Challenger Sports in early 2018.
+          </p>
+          <div class="education-skills-title">Focus Areas</div>
+          <div class="education-skills">
+            <span class="education-skill-tag">Networking Fundamentals</span>
+            <span class="education-skill-tag">Windows Systems</span>
+            <span class="education-skill-tag">Helpdesk &amp; Support</span>
+            <span class="education-skill-tag">TCP/IP &amp; DNS</span>
+            <span class="education-skill-tag">Hardware Troubleshooting</span>
+            <span class="education-skill-tag">CompTIA Exam Prep</span>
+            <span class="education-skill-tag">Self-Directed Learning</span>
+          </div>
+        </div>
+        <div class="timeline-expand">&#9662; click to expand</div>
+      </div>
+    </div>
+    <div class="timeline-item reveal-left">
       <div class="timeline-dot"></div>
       <div class="timeline-card edu-card" onclick="this.classList.toggle('expanded')">
         <div class="timeline-date">2012 &mdash; 2016</div>
@@ -3040,7 +3103,7 @@ footer {
 </section>
 
 <footer>
-  <p>&copy; 2025 Neo Saxena &mdash; Built with &#27770;&#24847; (Determination)</p>
+  <p>&copy; 2025 Neo (Nitin) Saxena &mdash; Built with &#27770;&#24847; (Determination)</p>
 </footer>
 
 <script>
